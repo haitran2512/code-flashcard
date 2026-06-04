@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tài Khoản</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* Giữ nguyên màu nền gradient cho đồng bộ */
+            background: linear-gradient(120deg, #2980b9, #8e44ad);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-container {
+            background: #ffffff;
+            width: 450px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            /* Nếu nội dung dài, tự động có thanh cuộn */
+            max-height: 90vh; 
+            overflow-y: auto;
+            position: relative; /* BẮT BUỘC để neo nút quay lại */
+        }
+
+        /* --- Style cho nút Quay lại --- */
+        .btn-back {
+            position: absolute; /* Đặt vị trí tuyệt đối */
+            top: 20px;
+            left: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover {
+            color: #2980b9;
+        }
+        /* ----------------------------- */
+
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            margin-top: 10px; /* Đẩy tiêu đề xuống một chút cho đỡ dính nút Back */
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none; /* Ẩn mặc định */
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 12px;
+            background: #8e44ad;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-register:hover {
+            background: #732d91;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <a href="/" class="btn-back">← Về trang chủ</a>
+
+        <h2>Tạo Tài Khoản</h2>
+        <form action="/register" method="POST" id="registerForm">
+            <div class="input-group">
+                <label for="fullname">Họ và tên</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Nhập họ và tên của bạn" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Địa chỉ Email</label>
+                <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" placeholder="Tạo mật khẩu" minlength="6" required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm_password">Xác nhận mật khẩu</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Nhập lại mật khẩu" required>
+                <div class="error-message" id="passwordError">Mật khẩu không khớp!</div>
+            </div>
+
+            <button type="submit" class="btn-register">Đăng Ký</button>
+
+            <div class="login-link">
+                Đã có tài khoản? <a href="/login">Đăng nhập tại đây</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            // Lấy giá trị mật khẩu và xác nhận mật khẩu
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const errorText = document.getElementById('passwordError');
+
+            // Kiểm tra mật khẩu có khớp không
+            if (password !== confirmPassword) {
+                e.preventDefault(); // Ngăn form gửi đi
+                errorText.style.display = 'block'; // Hiện thông báo lỗi
+                document.getElementById('confirm_password').style.borderColor = '#e74c3c'; // Đổi màu viền thành đỏ
+            } else {
+                errorText.style.display = 'none'; // Ẩn thông báo lỗi
+                document.getElementById('confirm_password').style.borderColor = '#ccc';
+                
+                // Nếu khớp, KHÔNG chạy e.preventDefault() để trình duyệt thực sự đẩy dữ liệu về Backend (Flask)
+            }
+        });
+    </script>
+</body>
+</html>

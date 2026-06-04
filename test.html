@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khảo Sát Đầu Vào - Pro Flashcard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #2980b9, #8e44ad);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .test-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 850px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .test-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .test-header h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .test-header p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .section-title {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin: 30px 0 20px 0;
+            font-size: 20px;
+            display: inline-block;
+        }
+
+        .question-block {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        /* Style cho ô nhập text */
+        .input-text {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .input-text:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: 0.3s;
+            background: white;
+            font-size: 15px;
+        }
+
+        .options label:hover {
+            background: #eaf2f8;
+            border-color: #3498db;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: #27ae60;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-submit:hover {
+            background: #219653;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="test-container">
+        <div class="test-header">
+            <h2>Thiết Lập Lộ Trình Học Cá Nhân 🚀</h2>
+            <p>Hoàn thành bản khảo sát ngắn dưới đây để hệ thống AI tự động tối ưu hóa bộ Flashcard phù hợp nhất với trình độ và thói quen của bạn nhé!</p>
+        </div>
+
+        <form action="/test" method="POST">
+            
+            <div class="section-title">Phần 1: Nền tảng & Điểm số</div>
+
+            <div class="question-block">
+                <div class="question-text">1. Chứng chỉ & Điểm thi: Điểm thi THPT Quốc gia môn Tiếng Anh của bạn là bao nhiêu? Bạn đã từng thi các chứng chỉ quốc tế như IELTS, TOEIC chưa (nếu có, điểm số là bao nhiêu)?</div>
+                <input type="text" class="input-text" name="scores" placeholder="Ví dụ: THPT 8.0, IELTS 6.0..." required>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">2. Khung năng lực: Nếu phải tự đánh giá, bạn thấy mình đang ở mức nào?</div>
+                <div class="options">
+                    <label><input type="radio" name="cefr_level" value="A1" required> Mất gốc / A1-A2 (Cơ bản - Cần học từ số 0)</label>
+                    <label><input type="radio" name="cefr_level" value="B1"> B1-B2 (Trung cấp - Giao tiếp khá, cần mở rộng vốn từ)</label>
+                    <label><input type="radio" name="cefr_level" value="C1"> C1-C2 (Cao cấp - Đang ôn luyện thi chứng chỉ, học thuật)</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">3. Mục tiêu học tập: Mục đích chính khi học tiếng Anh của bạn là gì?</div>
+                <div class="options">
+                    <label><input type="radio" name="study_goal" value="communication" required> Giao tiếp cơ bản hàng ngày</label>
+                    <label><input type="radio" name="study_goal" value="certificate"> Ôn thi lấy chứng chỉ (IELTS, TOEIC...)</label>
+                    <label><input type="radio" name="study_goal" value="work"> Tiếng Anh chuyên ngành phục vụ công việc</label>
+                    <label><input type="radio" name="study_goal" value="study_abroad"> Chuẩn bị đi du học</label>
+                </div>
+            </div>
+
+            <div class="section-title">Phần 2: Kỹ năng thực tế</div>
+
+            <div class="question-block">
+                <div class="question-text">4. Vốn từ vựng (Reading): Khi đọc một bài báo hoặc xem một video tiếng Anh thông thường, bạn hiểu được khoảng bao nhiêu?</div>
+                <div class="options">
+                    <label><input type="radio" name="reading_skill" value="low" required> Dưới 30% (Chỉ lác đác vài từ quen thuộc)</label>
+                    <label><input type="radio" name="reading_skill" value="medium"> Khoảng 50% - 70% (Hiểu ý chính, còn nhiều từ mới)</label>
+                    <label><input type="radio" name="reading_skill" value="high"> Trên 80% (Hiểu gần hết, có thể đoán từ qua ngữ cảnh)</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">5. Nền tảng Ngữ pháp: Bạn có nắm vững cấu trúc của các thì cơ bản và biết cách đặt một câu đúng ngữ pháp chưa?</div>
+                <div class="options">
+                    <label><input type="radio" name="grammar_skill" value="poor" required> Chưa vững, hay bị nhầm lẫn loạn xạ</label>
+                    <label><input type="radio" name="grammar_skill" value="average"> Nắm được lý thuyết nhưng áp dụng còn chậm</label>
+                    <label><input type="radio" name="grammar_skill" value="good"> Nắm vững, tự tin đặt câu chuẩn xác</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">6. Kỹ năng Nghe (Listening): Khi nghe người bản xứ nói chuyện ở tốc độ bình thường (không Vietsub), bạn thấy sao?</div>
+                <div class="options">
+                    <label><input type="radio" name="listening_skill" value="poor" required> Như "vịt nghe sấm", không bắt được từ nào</label>
+                    <label><input type="radio" name="listening_skill" value="average"> Bắt được các từ khóa (keywords) và đoán được ý chính</label>
+                    <label><input type="radio" name="listening_skill" value="good"> Hiểu rõ ràng từng câu chữ họ nói</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">7. Kỹ năng Nói (Speaking): Bạn có phản xạ ngay lập tức và tự tin khi giới thiệu bản thân không?</div>
+                <div class="options">
+                    <label><input type="radio" name="speaking_skill" value="poor" required> Rất ngại nói, ấp úng không bật ra chữ</label>
+                    <label><input type="radio" name="speaking_skill" value="average"> Nói được nhưng hay phải dịch từ tiếng Việt sang tiếng Anh trong đầu</label>
+                    <label><input type="radio" name="speaking_skill" value="good"> Phản xạ tự nhiên, tự tin trôi chảy</label>
+                </div>
+            </div>
+
+            <div class="section-title">Phần 3: Thói quen & Định hướng</div>
+
+            <div class="question-block">
+                <div class="question-text">8. Tốc độ ghi nhớ: Trung bình, bạn có thể học và nhớ thành thạo bao nhiêu từ mới mỗi ngày?</div>
+                <div class="options">
+                    <label><input type="radio" name="memory_speed" value="slow" required> Dưới 5 từ (Học rất chậm)</label>
+                    <label><input type="radio" name="memory_speed" value="normal"> Khoảng 10 - 20 từ</label>
+                    <label><input type="radio" name="memory_speed" value="fast"> Trên 30 từ (Tiếp thu cực nhanh)</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">9. Thói quen học tập: Khi học từ mới, phương pháp nào hiệu quả nhất với bạn?</div>
+                <div class="options">
+                    <label><input type="radio" name="learning_style" value="visual" required> Nhìn hình ảnh minh họa</label>
+                    <label><input type="radio" name="learning_style" value="audio"> Nghe phát âm chuẩn lặp đi lặp lại</label>
+                    <label><input type="radio" name="learning_style" value="context"> Đọc qua các ví dụ, cụm từ trong ngữ cảnh</label>
+                    <label><input type="radio" name="learning_style" value="writing"> Chép tay nhiều lần</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">10. Khó khăn lớn nhất: Rào cản lớn nhất của bạn khi học tiếng Anh hiện tại là gì?</div>
+                <div class="options">
+                    <label><input type="radio" name="biggest_challenge" value="forgetful" required> Học trước quên sau (Thiếu lặp lại ngắt quãng)</label>
+                    <label><input type="radio" name="biggest_challenge" value="lazy"> Lười học từ vựng (Thiếu động lực)</label>
+                    <label><input type="radio" name="biggest_challenge" value="shy"> Ngại giao tiếp, sợ sai ngữ pháp</label>
+                    <label><input type="radio" name="biggest_challenge" value="environment"> Không có môi trường thực hành</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Xác Nhận & Thiết Lập Lộ Trình</button>
+        </form>
+    </div>
+
+</body>
+</html>

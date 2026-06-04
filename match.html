@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Nối Từ - Pro Flashcard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #1abc9c, #2980b9); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; color: white;}
+        
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { font-size: 36px; margin-bottom: 10px; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header p { font-size: 16px; opacity: 0.9; }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* TĂNG LÊN 5 CỘT ĐỂ ĐỰNG ĐỦ 20 THẺ */
+            gap: 15px;
+            max-width: 1000px; /* NỚI RỘNG BẢNG */
+            width: 100%;
+        }
+
+        .game-card {
+            background: white;
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 20px 10px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90px;
+        }
+
+        .game-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .game-card.selected { background: #f1c40f; color: white; transform: scale(0.95); box-shadow: inset 0 3px 5px rgba(0,0,0,0.2); }
+        .game-card.wrong { background: #e74c3c; color: white; animation: shake 0.4s; }
+        .game-card.matched { visibility: hidden; opacity: 0; transition: visibility 0s 0.3s, opacity 0.3s linear; }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .btn-next { display: none; margin-top: 40px; padding: 15px 40px; background: #e67e22; border: none; border-radius: 30px; color: white; font-size: 20px; font-weight: bold; cursor: pointer; text-decoration: none; box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4); transition: 0.3s; animation: popIn 0.5s; }
+        .btn-next:hover { background: #d35400; transform: translateY(-3px); }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .game-board { grid-template-columns: repeat(4, 1fr); }
+            .game-card { font-size: 16px; padding: 15px 10px; }
+        }
+        @media (max-width: 480px) {
+            .game-board { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Nối Từ Ký Ức 🧩</h1>
+        <p>Hãy tìm 1 thẻ tiếng Anh + 1 thẻ tiếng Việt tương ứng. Sau khi vượt qua, cậu sẽ làm Test chính các từ này!</p>
+    </div>
+
+    <div class="game-board" id="gameBoard">
+        </div>
+
+    <a href="/quiz" class="btn-next" id="btnNext">🚀 Chuyển sang làm bài Test</a>
+
+    <script>
+        const vocabList = {{ vocab_list | tojson }};
+        let cardsData = [];
+        
+        vocabList.forEach(item => {
+            cardsData.push({ text: item.word, id: item.id, type: 'word' });
+            cardsData.push({ text: item.meaning, id: item.id, type: 'meaning' });
+        });
+
+        cardsData.sort(() => Math.random() - 0.5);
+
+        const gameBoard = document.getElementById('gameBoard');
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false; 
+        let pairsMatched = 0;
+        const totalPairs = vocabList.length;
+
+        cardsData.forEach(data => {
+            const cardEl = document.createElement('div');
+            cardEl.classList.add('game-card');
+            cardEl.innerText = data.text;
+            cardEl.dataset.id = data.id;
+            
+            cardEl.addEventListener('click', () => handleCardClick(cardEl));
+            gameBoard.appendChild(cardEl);
+        });
+
+        function handleCardClick(card) {
+            if (lockBoard || card === firstCard || card.classList.contains('matched')) return;
+
+            card.classList.add('selected');
+
+            if (!firstCard) {
+                firstCard = card;
+                return;
+            }
+
+            secondCard = card;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.id === secondCard.dataset.id;
+            if (isMatch) {
+                disableCards();
+            } else {
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.remove('selected');
+            secondCard.classList.remove('selected');
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            
+            pairsMatched++;
+            resetBoard();
+
+            // KHI CHIẾN THẮNG -> HIỆN NÚT VÀO LÀM QUIZ
+            if (pairsMatched === totalPairs) {
+                setTimeout(() => {
+                    const btn = document.getElementById('btnNext');
+                    btn.style.display = 'inline-block';
+                    btn.innerText = "📝 Làm bài Test ngay"; 
+                    btn.href = "/quiz"; 
+                    
+                    gameBoard.style.display = 'none';
+                    document.querySelector('.header h1').innerText = "🎉 Cậu đỉnh quá!";
+                    document.querySelector('.header p').innerText = "Khởi động thế là đủ rồi. Vào test ngay 10 từ cậu vừa nối nào!";
+                }, 500);
+            }
+        }
+
+        function unflipCards() {
+            lockBoard = true; 
+            
+            firstCard.classList.remove('selected');
+            secondCard.classList.remove('selected');
+            firstCard.classList.add('wrong');
+            secondCard.classList.add('wrong');
+
+            setTimeout(() => {
+                firstCard.classList.remove('wrong');
+                secondCard.classList.remove('wrong');
+                resetBoard();
+            }, 600);
+        }
+
+        function resetBoard() {
+            [firstCard, secondCard, lockBoard] = [null, null, false];
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Flashcard - Pro Flashcard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(120deg, #2c3e50, #3498db); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-top: 50px; color: white;}
+        
+        .header-bar { width: 100%; max-width: 600px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding: 0 20px;}
+        .btn-back { color: white; text-decoration: none; font-size: 16px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 5px; transition: 0.3s;}
+        .btn-back:hover { background: rgba(255,255,255,0.4); }
+        .progress-text { font-size: 18px; font-weight: bold; }
+
+        /* --- Hiệu ứng 3D cho Thẻ --- */
+        .scene { width: 350px; height: 450px; perspective: 1000px; margin-bottom: 40px; }
+        
+        .card { width: 100%; height: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; cursor: pointer; }
+        
+        /* Class này được thêm vào bằng JS để lật thẻ */
+        .card.is-flipped { transform: rotateY(180deg); }
+        
+        .card__face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); padding: 30px; text-align: center; }
+        
+        .card__face--front { background: white; color: #2c3e50; }
+        .card__face--back { background: #f39c12; color: white; transform: rotateY(180deg); }
+
+        .word { font-size: 42px; font-weight: bold; margin-bottom: 15px; color: #2980b9;}
+        .meaning { font-size: 32px; font-weight: bold; }
+        .hint { font-size: 14px; color: #999; margin-top: auto; }
+        .hint-back { font-size: 14px; color: rgba(255,255,255,0.8); margin-top: auto; }
+
+        /* --- Cụm nút điều khiển --- */
+        .controls { display: flex; gap: 20px; }
+        .btn-control { padding: 15px 30px; border: none; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); color: white;}
+        .btn-fail { background: #e74c3c; }
+        .btn-fail:hover { background: #c0392b; transform: translateY(-3px);}
+        .btn-pass { background: #27ae60; }
+        .btn-pass:hover { background: #219653; transform: translateY(-3px);}
+
+        .completion-msg { display: none; text-align: center; font-size: 24px; background: white; color: #2c3e50; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="/" class="btn-back">← Về trang chủ</a>
+        <div class="progress-text">Thẻ: <span id="currentIndex">1</span> / <span id="totalCards">0</span></div>
+    </div>
+
+    <div class="scene" id="flashcard-scene">
+        <div class="card" id="flashcard">
+            <div class="card__face card__face--front">
+                <div class="word" id="front-word">Word</div>
+                <div class="hint">Chạm vào thẻ để xem nghĩa</div>
+            </div>
+            <div class="card__face card__face--back">
+                <div class="meaning" id="back-meaning">Ý nghĩa</div>
+                <div class="hint-back">Chạm để úp thẻ lại</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="completion-msg" id="completion-msg">
+        <h2>🎉 Tuyệt vời!</h2>
+        <p style="margin-top: 15px; font-size: 16px; color: #666;">Cậu đã hoàn thành phiên học Flashcard này. Giờ làm bài test để khắc sâu trí nhớ nhé!</p>
+        <a href="/quiz" class="btn-back" style="display: inline-block; margin-top: 25px; background: #e67e22;">📝 Làm bài Test ngay</a>
+    </div>
+
+    <div class="controls" id="controls">
+        <button class="btn-control btn-fail" onclick="markWord(0)">❌ Chưa thuộc</button>
+        <button class="btn-control btn-pass" onclick="markWord(1)">✅ Đã thuộc</button>
+    </div>
+
+    <script>
+        // Lấy dữ liệu từ điển do Python truyền sang (Chuyển thành biến JavaScript)
+        const flashcards = {{ vocab_list | tojson }};
+        
+        let currentCardIndex = 0;
+        const totalCards = flashcards.length;
+        
+        document.getElementById('totalCards').innerText = totalCards;
+
+        // Xử lý sự kiện LẬT THẺ khi click vào thẻ
+        const cardElement = document.getElementById('flashcard');
+        cardElement.addEventListener('click', function() {
+            cardElement.classList.toggle('is-flipped');
+        });
+
+        // Hàm tải nội dung thẻ
+        function loadCard() {
+            if (currentCardIndex < totalCards) {
+                document.getElementById('front-word').innerText = flashcards[currentCardIndex].word;
+                document.getElementById('back-meaning').innerText = flashcards[currentCardIndex].meaning;
+                document.getElementById('currentIndex').innerText = currentCardIndex + 1;
+            } else {
+                // Đã học hết thẻ
+                document.getElementById('flashcard-scene').style.display = 'none';
+                document.getElementById('controls').style.display = 'none';
+                document.getElementById('completion-msg').style.display = 'block';
+            }
+        }
+
+        // HÀM MỚI: GỬI DỮ LIỆU LÊN SERVER TRƯỚC KHI CHUYỂN THẺ
+        function markWord(status) {
+            const currentWord = flashcards[currentCardIndex];
+            
+            // Không gửi dữ liệu nếu đang hiển thị thẻ "Hoàn thành"
+            if (currentWord.id !== 0) {
+                fetch("/mark_word", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        word: currentWord.word,
+                        meaning: currentWord.meaning,
+                        status: status
+                    })
+                });
+            }
+            
+            // Úp thẻ và chuyển từ
+            cardElement.classList.remove('is-flipped');
+            setTimeout(() => {
+                currentCardIndex++;
+                loadCard();
+            }, 300);
+        }
+
+        // Tải thẻ đầu tiên khi vừa mở trang
+        loadCard();
+    </script>
+</body>
+</html>

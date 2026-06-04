@@ -1,0 +1,1136 @@
+﻿word,meaning,level
+Apple,Quả táo,A1
+Book,Quyển sách,A1
+Water,Nước,A1
+Family,Gia đình,A1
+House,Ngôi nhà,A1
+Money,Tiền bạc,A1
+Friend,Bạn bè,A1
+Morning,Buổi sáng,A1
+Night,Ban đêm,A1
+School,Trường học,A1
+Teacher,Giáo viên,A1
+Student,Học sinh,A1
+City,Thành phố,A1
+Country,Quốc gia,A1
+Animal,Động vật,A1
+Color,Màu sắc,A1
+Happy,Vui vẻ,A1
+Beautiful,Xinh đẹp,A1
+Listen,Lắng nghe,A1
+Speak,Nói,A1
+Hot,Nóng,A1
+Cold,Lạnh,A1
+Big,To lớn,A1
+Small,Nhỏ bé,A1
+Good,Tốt,A1
+Bad,"Xấu, tồi",A1
+Fast,Nhanh,A1
+Slow,Chậm,A1
+Old,"Cũ, già",A1
+New,Mới,A1
+Advice,Lời khuyên,A2
+Believe,Tin tưởng,A2
+Borrow,Mượn,A2
+Careful,Cẩn thận,A2
+Choose,Lựa chọn,A2
+Decide,Quyết định,A2
+Describe,Miêu tả,A2
+Difference,Sự khác biệt,A2
+Enjoy,"Thưởng thức, thích thú",A2
+Explain,Giải thích,A2
+Famous,Nổi tiếng,A2
+Guess,Đoán,A2
+Happen,Xảy ra,A2
+Improve,Cải thiện,A2
+Invite,Mời,A2
+Knowledge,Kiến thức,A2
+Language,Ngôn ngữ,A2
+Mistake,Lỗi lầm,A2
+Practice,Thực hành,A2
+Remember,Nhớ lại,A2
+Afraid,Sợ hãi,A2
+Angry,Tức giận,A2
+Awake,"Tỉnh táo, thức giấc",A2
+Brave,Dũng cảm,A2
+Cheap,Rẻ,A2
+Clear,Rõ ràng,A2
+Clever,Thông minh,A2
+Dangerous,Nguy hiểm,A2
+Difficult,Khó khăn,A2
+Dirty,Bẩn thỉu,A2
+Achieve,Đạt được,B1
+Advantage,Lợi thế,B1
+Analyze,Phân tích,B1
+Apologize,Xin lỗi,B1
+Benefit,Lợi ích,B1
+Challenge,Thử thách,B1
+Compare,So sánh,B1
+Complain,Phàn nàn,B1
+Concentrate,Tập trung,B1
+Confident,Tự tin,B1
+Create,Tạo ra,B1
+Damage,"Thiệt hại, làm hỏng",B1
+Develop,Phát triển,B1
+Disappoint,Làm thất vọng,B1
+Encourage,Khuyến khích,B1
+Environment,Môi trường,B1
+Evidence,Bằng chứng,B1
+Familiar,Quen thuộc,B1
+Generation,Thế hệ,B1
+Identify,Nhận diện,B1
+Ability,Khả năng,B1
+Absence,Sự vắng mặt,B1
+Accident,Tai nạn,B1
+Action,Hành động,B1
+Activity,Hoạt động,B1
+Address,"Địa chỉ, giải quyết",B1
+Adventure,Chuyến phiêu lưu,B1
+Advertisement,Quảng cáo,B1
+Agreement,Sự thỏa thuận,B1
+Agriculture,Nông nghiệp,B1
+Adequate,"Đầy đủ, thỏa đáng",B2
+Ambiguous,"Mơ hồ, nhập nhằng",B2
+Anticipate,"Dự đoán, lường trước",B2
+Appropriate,Thích hợp,B2
+Capable,Có khả năng,B2
+Compensate,"Đền bù, bồi thường",B2
+Comprehensive,Toàn diện,B2
+Controversial,Gây tranh cãi,B2
+Crucial,Cực kỳ quan trọng,B2
+Devastating,"Tàn phá, hủy diệt",B2
+Evaluate,Đánh giá,B2
+Fluctuate,"Dao động, thay đổi",B2
+Implement,"Triển khai, thực hiện",B2
+Inevitable,Không thể tránh khỏi,B2
+Justify,"Biện minh, bào chữa",B2
+Perspective,"Góc nhìn, quan điểm",B2
+Profound,"Sâu sắc, uyên thâm",B2
+Significant,"Đáng kể, quan trọng",B2
+Sustainable,Bền vững,B2
+Vulnerable,Dễ bị tổn thương,B2
+Abandon,"Từ bỏ, ruồng bỏ",B2
+Absolute,Tuyệt đối,B2
+Acceptable,Có thể chấp nhận được,B2
+Accidental,"Tình cờ, ngẫu nhiên",B2
+Accommodate,"Cung cấp chỗ ở, đáp ứng",B2
+Accompany,"Đi cùng, hộ tống",B2
+Accurate,Chính xác,B2
+Accuse,Buộc tội,B2
+Acknowledge,"Công nhận, thừa nhận",B2
+Acquire,"Đạt được, thu được",B2
+Alleviate,"Làm dịu, giảm bớt",C1
+Catalyst,"Chất xúc tác, động lực",C1
+Cohesive,"Gắn kết, dính liền",C1
+Detrimental,"Có hại, bất lợi",C1
+Eloquent,"Hùng hồn, lưu loát",C1
+Empirical,Dựa trên thực nghiệm,C1
+Eradicate,"Tiêu diệt, xóa sổ",C1
+Feasible,Khả thi,C1
+Hierarchy,Hệ thống cấp bậc,C1
+Impeccable,"Hoàn hảo, không tì vết",C1
+Incentive,"Sự khích lệ, phần thưởng",C1
+Mitigate,"Làm nhẹ bớt, giảm nhẹ",C1
+Paradigm,"Mô hình, kiểu mẫu",C1
+Pragmatic,"Thực tế, thực dụng",C1
+Prevalent,"Thịnh hành, phổ biến",C1
+Resilient,"Kiên cường, mau phục hồi",C1
+Scrutinize,Xem xét kỹ lưỡng,C1
+Susceptible,"Dễ mắc phải, nhạy cảm",C1
+Tangible,"Hữu hình, có thể sờ được",C1
+Ubiquitous,Có mặt ở khắp mọi nơi,C1
+Abolish,"Bãi bỏ, hủy bỏ",C1
+Abrupt,Đột ngột,C1
+Absurd,"Vô lý, lố bịch",C1
+Abundant,"Dồi dào, phong phú",C1
+Accelerate,"Thúc đẩy, tăng tốc",C1
+Accessible,Có thể tiếp cận được,C1
+Acclaim,"Ca ngợi, hoan nghênh",C1
+Accomplish,Hoàn thành xuất sắc,C1
+Accumulate,Tích lũy,C1
+Accuracy,Sự chuẩn xác,C1
+Aberration,"Sự lệch lạc, sự khác thường",C2
+Cacophony,"Âm thanh chói tai, tạp âm",C2
+Dichotomy,"Sự phân đôi, rẽ nhánh",C2
+Ephemeral,"Chóng vánh, phù du",C2
+Equivocate,"Nói mập mờ, nói nước đôi",C2
+Fastidious,"Khó tính, kén cá chọn canh",C2
+Idiosyncrasy,"Đặc tính kỳ lạ, thói quen lập dị",C2
+Ineffable,Không thể tả bằng lời,C2
+Mellifluous,"Ngọt ngào, êm tai (âm thanh)",C2
+Obfuscate,"Làm hoang mang, làm mờ mịt",C2
+Panacea,"Thuốc trị bách bệnh, giải pháp toàn năng",C2
+Pedantic,"Câu nệ tiểu tiết, mô phạm",C2
+Quintessential,"Tinh túy nhất, mẫu mực nhất",C2
+Sycophant,Kẻ nịnh hót,C2
+Trepidation,"Sự lo lắng, sự bồn chồn",C2
+Vapid,"Tẻ nhạt, vô vị",C2
+Verisimilitude,"Sự giống như thật, vẻ chân thực",C2
+Vicarious,Cảm nhận thay qua người khác,C2
+Zealous,"Sốt sắng, cuồng nhiệt",C2
+Zenith,"Thiên đỉnh, thời kỳ hoàng kim",C2
+Abhor,"Ghê tởm, căm ghét",C2
+Abysmal,"Tệ hại, cực kỳ kém",C2
+Acrimonious,"Gay gắt, chua chát",C2
+Adroit,"Khéo léo, tinh ranh",C2
+Adulation,"Sự nịnh hót, tung hô",C2
+Aesthetic,Thuộc về thẩm mỹ,C2
+Affable,"Niềm nở, ân cần",C2
+Alacrity,"Sự sốt sắng, sẵn sàng",C2
+Amalgamate,"Pha trộn, sáp nhập",C2
+Ambivalent,Mâu thuẫn trong tư tưởng,C2
+Boy,Bé trai,A1
+Girl,Bé gái,A1
+Father,Bố,A1
+Mother,Mẹ,A1
+Brother,Anh/em trai,A1
+Sister,Chị/em gái,A1
+Car,Xe hơi,A1
+Bus,Xe buýt,A1
+Train,Tàu hỏa,A1
+Plane,Máy bay,A1
+Ticket,Vé,A1
+Station,Nhà ga,A1
+Airport,Sân bay,A1
+Shop,Cửa hàng,A1
+Market,Chợ,A1
+Price,Giá cả,A1
+Bag,Cái túi,A1
+Hat,Cái mũ,A1
+Shirt,Áo sơ mi,A1
+Shoes,Đôi giày,A1
+Milk,Sữa,A1
+Tea,Trà,A1
+Coffee,Cà phê,A1
+Rice,Gạo/Cơm,A1
+Meat,Thịt,A1
+Fish,Cá,A1
+Egg,Trứng,A1
+Cheese,Phô mai,A1
+Fruit,Trái cây,A1
+Address,Địa chỉ,A2
+Age,Tuổi tác,A2
+Ago,Trước đây,A2
+Air,Không khí,A2
+All,Tất cả,A2
+Alone,Một mình,A2
+Also,Cũng,A2
+Always,Luôn luôn,A2
+Apartment,Căn hộ,A2
+Area,Khu vực,A2
+Arm,Cánh tay,A2
+Around,Xung quanh,A2
+Art,Nghệ thuật,A2
+Aunt,Cô/Dì,A2
+Autumn,Mùa thu,A2
+Baby,Em bé,A2
+Back,Phía sau,A2
+Bank,Ngân hàng,A2
+Bath,Phòng tắm,A2
+Beach,Bãi biển,A2
+Desk,Bàn làm việc,A2
+Pen,Cái bút,A2
+Paper,Giấy,A2
+Notebook,Sổ tay,A2
+Ruler,Cái thước,A2
+Eraser,Cục tẩy,A2
+Background,Bối cảnh/Nền tảng,B1
+Base,Cơ sở,B1
+Basic,Cơ bản,B1
+Beauty,Vẻ đẹp,B1
+Benefit,Lợi ích,B1
+Blood,Máu,B1
+Board,Cái bảng/Hội đồng,B1
+Boat,Con thuyền,B1
+Body,Cơ thể,B1
+Bone,Xương,B1
+Border,Biên giới,B1
+Bottom,Dưới đáy,B1
+Brain,Não bộ,B1
+Branch,Chi nhánh/Cành cây,B1
+Brave,Dũng cảm,B1
+Bread,Bánh mì,B1
+Break,Phá vỡ/Giờ nghỉ,B1
+Breakfast,Bữa sáng,B1
+Breath,Hơi thở,B1
+Accept,Chấp nhận,B1
+According,"Theo như, dựa theo",B1
+Account,Tài khoản,B1
+Across,Băng qua,B1
+Act,Hành động/Diễn xuất,B1
+Action,Hành động,B1
+Activity,Hoạt động,B1
+Actually,Thực sự thì,B1
+Add,Thêm vào,B1
+Cabinet,Tủ chứa đồ,B2
+Cable,Dây cáp,B2
+Calculate,Tính toán,B2
+Camera,Máy ảnh,B2
+Camp,Khu cắm trại,B2
+Campaign,Chiến dịch,B2
+Campus,Khuôn viên trường,B2
+Cancer,Bệnh ung thư,B2
+Candidate,Ứng cử viên,B2
+Capability,Khả năng/Năng lực,B2
+Capacity,Sức chứa/Dung tích,B2
+Capital,Thủ đô/Tiền vốn,B2
+Captain,Đội trưởng/Thuyền trưởng,B2
+Capture,"Bắt giữ, thu hút",B2
+Carbon,Cac-bon,B2
+Card,Thẻ/Danh thiếp,B2
+Care,Sự chăm sóc,B2
+Career,Sự nghiệp,B2
+Careful,Cẩn thận,B2
+Factor,Yếu tố,B2
+Factory,Nhà máy,B2
+Fail,Thất bại,B2
+Failure,Sự thất bại,B2
+Fair,Công bằng,B2
+Fall,Rơi/Ngã,B2
+FALSE,Sai lệch,B2
+Familiar,Quen thuộc,B2
+Daunting,"Làm nản chí, đáng sợ",C1
+Dearth,"Sự thiếu hụt, khan hiếm",C1
+Debacle,"Sự sụp đổ, thất bại hoàn toàn",C1
+Debilitate,"Làm yếu đi, suy nhược",C1
+Debunk,"Bóc trần, vạch trần",C1
+Decimate,"Tàn phá, tiêu diệt phần lớn",C1
+Decorum,"Sự đúng mực, đoan trang",C1
+Deduce,"Suy luận, vạch ra",C1
+Defame,"Nói xấu, phỉ báng",C1
+Deference,"Sự tôn trọng, chiều theo",C1
+Deficient,Thiếu hụt,C1
+Definitive,"Cuối cùng, dứt khoát",C1
+Deflect,"Làm chệch hướng, đánh trống lảng",C1
+Deft,"Khéo léo, nhanh nhẹn",C1
+Defunct,"Không còn tồn tại, đã chết",C1
+Deleterious,Gây hại,C1
+Deliberate,"Cố ý, thận trọng",C1
+Delineate,"Phác họa, mô tả chi tiết",C1
+Demise,"Cái chết, sự chấm dứt",C1
+Demographics,Nhân khẩu học,C1
+Facilitate,"Tạo điều kiện, làm cho dễ dàng",C1
+Faction,"Bè phái, phe cánh",C1
+Fallacy,Ngụy biện,C1
+Falter,"Chùn bước, ngập ngừng",C1
+Fanatic,Kẻ cuồng tín,C1
+Farcical,"Khôi hài, lố bịch",C1
+Fastidious,"Khó tính, kén chọn",C1
+Fathom,"Thấu hiểu, thăm dò",C1
+Ebullient,"Sôi nổi, tràn đầy năng lượng",C2
+Eclectic,"Pha trộn, chiết trung",C2
+Efficacy,Hiệu quả (của thuốc/phương pháp),C2
+Effigy,Hình nộm,C2
+Effrontery,"Sự trơ tráo, vô liêm sỉ",C2
+Egalitarian,Bình đẳng,C2
+Egregious,"Tệ hại, trắng trợn",C2
+Elegy,Khúc ca hoài niệm/Bái ca tang lễ,C2
+Elicit,"Khơi gợi, moi ra (thông tin)",C2
+Elucidate,"Làm sáng tỏ, giải thích",C2
+Elusive,"Khó nắm bắt, khó hiểu",C2
+Emaciated,"Gầy gò, hốc hác",C2
+Embellish,"Tô điểm, thêm thắt",C2
+Embezzle,Biển thủ (tiền),C2
+Empathy,Sự thấu cảm,C2
+Empirical,Dựa trên thực nghiệm,C2
+Emulate,"Noi gương, cạnh tranh",C2
+Encomium,"Lời tán dương, ca tụng",C2
+Endemic,Đặc hữu (bệnh/động vật ở 1 vùng),C2
+Enervate,"Làm kiệt sức, làm yếu đi",C2
+Facetious,"Bỡn cợt, đùa không đúng lúc",C2
+Facile,"Dễ dãi, hời hợt",C2
+Fallow,"Bỏ hoang, chưa khai phá",C2
+Fatuous,"Ngớ ngẩn, ngu ngốc",C2
+Fecund,"Phì nhiêu, mắn đẻ, sáng tạo",C2
+Felicity,"Sự hạnh phúc tột độ, sự khéo léo",C2
+Fervor,"Sự nhiệt huyết, hăng hái",C2
+Fetter,"Trói buộc, kìm hãm",C2
+Fiasco,"Sự thất bại thảm hại, trò hề",C2
+Fiat,Sắc lệnh,C2
+Tree,Cái cây,A1
+Flower,Bông hoa,A1
+Grass,Bãi cỏ,A1
+River,Dòng sông,A1
+Lake,Hồ nước,A1
+Mountain,Ngọn núi,A1
+Road,Con đường,A1
+Street,Đường phố,A1
+Park,Công viên,A1
+Garden,Khu vườn,A1
+Computer,Máy tính,A1
+Phone,Điện thoại,A1
+Television,Tivi,A1
+Radio,Đài phát thanh,A1
+Movie,Phim ảnh,A1
+Music,Âm nhạc,A1
+Song,Bài hát,A1
+Guitar,Đàn ghi ta,A1
+Piano,Đàn piano,A1
+Drum,Cái trống,A1
+Earn,Kiếm tiền,A2
+Spend,Tiêu xài,A2
+Save,Tiết kiệm,A2
+Cost,Chi phí,A2
+Pay,Thanh toán,A2
+Sell,Bán,A2
+Buy,Mua,A2
+Customer,Khách hàng,A2
+Manager,Người quản lý,A2
+Staff,Nhân viên,A2
+Task,Nhiệm vụ,A2
+Team,Đội nhóm,A2
+Goal,Mục tiêu,A2
+Skill,Kỹ năng,A2
+Tool,Công cụ,A2
+Machine,Máy móc,A2
+Engine,Động cơ,A2
+Metal,Kim loại,A2
+Wood,Gỗ,A2
+Plastic,Nhựa,A2
+Manage,Quản lý,B1
+Method,Phương pháp,B1
+Nature,Thiên nhiên,B1
+Natural,Tự nhiên,B1
+Network,Mạng lưới,B1
+Object,Vật thể,B1
+Officer,Sĩ quan,B1
+Official,Chính thức,B1
+Opportunity,Cơ hội,B1
+Option,Tùy chọn,B1
+Organize,Tổ chức,B1
+Original,Nguyên bản,B1
+Outcome,Kết quả,B1
+Pain,Nỗi đau,B1
+Participant,Người tham gia,B1
+Partner,Đối tác,B1
+Pattern,Mô hình,B1
+Perform,Trình diễn,B1
+Phase,Giai đoạn,B1
+Philosophy,Triết học,B1
+Handle,Xử lý,B2
+Harmony,Sự hài hòa,B2
+Highlight,Làm nổi bật,B2
+Household,Hộ gia đình,B2
+Identify,Nhận dạng,B2
+Illustrate,Minh họa,B2
+Impact,Tác động,B2
+Imply,Ngụ ý,B2
+Incident,Sự cố,B2
+Index,Chỉ số,B2
+Indicate,Chỉ ra,B2
+Individual,Cá nhân,B2
+Industry,Ngành công nghiệp,B2
+Influence,Ảnh hưởng,B2
+Initial,Ban đầu,B2
+Initiative,Sáng kiến,B2
+Injury,Chấn thương,B2
+Inner,Bên trong,B2
+Innocent,Vô tội,B2
+Inquiry,Sự điều tra,B2
+Garner,Thu thập,C1
+Garnish,Trang trí (món ăn),C1
+Gauge,Đo lường,C1
+Generic,Chung chung,C1
+Gist,Ý chính,C1
+Glaring,"Rành rành, chói lọi",C1
+Grapple,Vật lộn,C1
+Gregarious,Hòa đồng,C1
+Grievance,Lời phàn nàn,C1
+Grueling,Cực nhọc,C1
+Gullible,"Dễ tin, nhẹ dạ",C1
+Habitat,Môi trường sống,C1
+Hackneyed,"Nhàm chán, sáo rỗng",C1
+Haphazard,Bừa bãi,C1
+Harass,Quấy rối,C1
+Harsh,"Khắc nghiệt, thô ráp",C1
+Hasten,Thúc giục,C1
+Havoc,Sự tàn phá,C1
+Hazardous,Nguy hiểm,C1
+Hectic,Sôi nổi (công việc),C1
+Grandiloquent,"Khoa trương, huênh hoang",C2
+Gratuitous,"Vô cớ, không cần thiết",C2
+Guile,"Sự xảo quyệt, lừa lọc",C2
+Halcyon,Thanh bình,C2
+Hapless,Bất hạnh,C2
+Hegemony,Quyền bá chủ,C2
+Heresy,Dị giáo,C2
+Hubris,Sự kiêu ngạo,C2
+Hyperbole,Phép cường điệu,C2
+Iconoclast,Người đập phá thần tượng,C2
+Ignominious,"Nhục nhã, đáng xấu hổ",C2
+Illicit,"Trái phép, lậu",C2
+Imbroglio,"Tình trạng rắc rối, bối rối",C2
+Imminent,"Sắp xảy ra, nhãn tiền",C2
+Immutable,Không thể thay đổi,C2
+Impassive,Bình thản,C2
+Impecunious,Túng quẫn,C2
+Imperative,"Cấp bách, bắt buộc",C2
+Imperious,"Độc đoán, hống hách",C2
+Impetuous,"Bốc đồng, dữ dội",C2
+Head,Cái đầu,A1
+Eye,Con mắt,A1
+Ear,Cái tai,A1
+Nose,Cái mũi,A1
+Mouth,Cái miệng,A1
+Hair,Mái tóc,A1
+Leg,Cái chân,A1
+Arm,Cánh tay,A1
+Hand,Bàn tay,A1
+Foot,Bàn chân,A1
+Cloud,Đám mây,A1
+Snow,Tuyết,A1
+Wind,Gió,A1
+Storm,Cơn bão,A1
+Ice,Băng/Đá,A1
+Red,Màu đỏ,A1
+Blue,Màu xanh dương,A1
+Green,Màu xanh lá,A1
+Yellow,Màu vàng,A1
+Black,Màu đen,A1
+White,Màu trắng,A1
+Jump,Nhảy,A1
+Run,Chạy,A1
+Walk,Đi bộ,A1
+Swim,Bơi,A1
+Fly,Bay,A1
+Sing,Hát,A1
+Dance,Nhảy múa,A1
+Read,Đọc,A1
+Write,Viết,A1
+Doctor,Bác sĩ,A2
+Nurse,Y tá,A2
+Pilot,Phi công,A2
+Driver,Tài xế,A2
+Chef,Đầu bếp,A2
+Farmer,Nông dân,A2
+Actor,Diễn viên nam,A2
+Singer,Ca sĩ,A2
+Police,Cảnh sát,A2
+Soldier,Người lính,A2
+Happy,Hạnh phúc,A2
+Sad,Buồn bã,A2
+Tired,Mệt mỏi,A2
+Bored,Chán nản,A2
+Excited,Hào hứng,A2
+Nervous,Căng thẳng,A2
+Surprised,Ngạc nhiên,A2
+Calm,Bình tĩnh,A2
+Proud,Tự hào,A2
+Shy,Nhút nhát,A2
+Spring,Mùa xuân,A2
+Summer,Mùa hè,A2
+Autumn,Mùa thu,A2
+Winter,Mùa đông,A2
+Morning,Buổi sáng,A2
+Afternoon,Buổi chiều,A2
+Evening,Buổi tối,A2
+Midnight,Nửa đêm,A2
+Today,Hôm nay,A2
+Tomorrow,Ngày mai,A2
+Success,Sự thành công,B1
+Failure,Sự thất bại,B1
+Peace,Hòa bình,B1
+War,Chiến tranh,B1
+Love,Tình yêu,B1
+Hate,Sự thù ghét,B1
+Joy,Niềm vui,B1
+Sorrow,Nỗi buồn,B1
+Hope,Niềm hy vọng,B1
+Fear,Nỗi sợ hãi,B1
+Truth,Sự thật,B1
+Lie,Lời nói dối,B1
+Secret,Bí mật,B1
+Promise,Lời hứa,B1
+Mistake,Lỗi lầm,B1
+Reason,Lý do,B1
+Result,Kết quả,B1
+Process,Quá trình,B1
+System,Hệ thống,B1
+Control,Sự kiểm soát,B1
+Preserve,Bảo tồn,B2
+Reject,Từ chối,B2
+Maintain,Duy trì,B2
+Obtain,Đạt được,B2
+Retain,Giữ lại,B2
+Sustain,Chống đỡ/Duy trì,B2
+Contain,Chứa đựng,B2
+Reflect,Phản chiếu/Phản ánh,B2
+Reveal,Tiết lộ,B2
+Conceal,Che giấu,B2
+Vital,Thiết yếu,B2
+Crucial,Quyết định/Quan trọng,B2
+Essential,Cần thiết,B2
+Important,Quan trọng,B2
+Minor,Thiểu số/Nhỏ,B2
+Major,Đa số/Lớn,B2
+Primary,Sơ cấp/Chính,B2
+Secondary,Thứ cấp/Phụ,B2
+Internal,Bên trong,B2
+External,Bên ngoài,B2
+Abate,Làm dịu đi,C1
+Abdicate,Từ bỏ quyền lợi,C1
+Abduct,Bắt cóc,C1
+Abhor,Ghê tởm,C1
+Abide,Tuân theo,C1
+Abnormal,Bất thường,C1
+Abolish,Hủy bỏ,C1
+Abound,Có rất nhiều,C1
+Abridge,Rút ngắn,C1
+Abrupt,Đột ngột,C1
+Abscond,Bỏ trốn,C1
+Absolve,Xá tội,C1
+Absorb,Hấp thụ,C1
+Abstain,Kiêng cữ,C1
+Abstract,Trừu tượng,C1
+Abundance,Sự phong phú,C1
+Abuse,Lạm dụng,C1
+Accelerate,Tăng tốc,C1
+Accessible,Có thể tiếp cận,C1
+Accessory,Phụ kiện,C1
+Juxtapose,Đặt cạnh nhau (để so sánh),C2
+Kowtow,Khúm núm/Luồn cúi,C2
+Labyrinth,Mê cung,C2
+Lackadaisical,Uể oải/Chán nản,C2
+Laconic,Vắn tắt/Gọn gàng,C2
+Languid,Lờ đờ/Thiếu sức sống,C2
+Latent,Tiềm ẩn,C2
+Lethargic,Hôn mê/Ngoan cố,C2
+Loquacious,Nói nhiều/Ba hoa,C2
+Lugubrious,Bi thảm/Sầu thảm,C2
+Magnanimous,Hào hiệp/Cao thượng,C2
+Malaise,Sự khó chịu/Bất an,C2
+Malleable,Dễ uốn nắn/Dễ thay đổi,C2
+Maudlin,Ủy mị/Sướt mướt,C2
+Mendacious,Sai sự thật/Xảo trá,C2
+Mercurial,Thay đổi thất thường,C2
+Meticulous,Tỉ mỉ/Quá kỹ càng,C2
+Misanthrope,Kẻ ghét nhân loại,C2
+Modicum,Một chút/Số lượng ít,C2
+Morose,Buồn rầu/Khó tính,C2
+Multifarious,Nhiều mặt/Đa dạng,C2
+Munificent,Cực kỳ hào phóng,C2
+Myriad,Vô số/Hàng vạn,C2
+Nadir,Điểm thấp nhất/Đáy,C2
+Nefarious,Xấu xa/Độc ác,C2
+Neophyte,Người mới học/Lính mới,C2
+Nihilism,Chủ nghĩa hư vô,C2
+Noisome,Mùi hôi thối/Khó chịu,C2
+Nominal,Tượng trưng/Nhỏ nhặt,C2
+Nuance,Sắc thái (nhỏ),C2
+Obdurate,Ngoan cố/Cứng đầu,C2
+Obsequious,Khúm núm/Nịnh nọt,C2
+Obstreperous,Ngỗ ngược/Làm ồn,C2
+Obtuse,Chậm hiểu/Âm u,C2
+Odious,Đáng ghét/Ghê tởm,C2
+Officious,Lăng xăng/Hay can thiệp,C2
+Onerous,Nặng nề/Phiền toái,C2
+Opaque,Mờ đục/Không trong suốt,C2
+Opulent,Sang trọng/Phú quý,C2
+Ostensible,Có vẻ là/Bề ngoài là,C2
+Palliate,Làm nhẹ bớt (bệnh),C2
+Pallid,Nhợt nhạt/Xanh xao,C2
+Paradox,Nghịch lý,C2
+Paragon,Mẫu mực/Tuyệt hảo,C2
+Parochial,Thiển cận/Hẹp hòi,C2
+Parsimony,Sự keo kiệt,C2
+Pathos,Sự gợi niềm thương cảm,C2
+Paucity,Sự khan hiếm,C2
+Pejorative,Cótính miệt thị,C2
+Penchant,Thiên hướng/Sở thích,C2
+Penurious,Nghèo xơ xác,C2
+Perfunctory,Chiếu lệ/Làm cho có,C2
+Pernicious,Độc hại/Nguy hiểm ngầm,C2
+Perspicacious,Sáng suốt/Minh mẫn,C2
+Petulant,Hay hờn dỗi/Cáu kỉnh,C2
+Phlegmatic,Lạnh lùng/Bình thản,C2
+Pithy,Ngắn gọn súc tích,C2
+Platitude,Lời nói sáo rỗng,C2
+Plethora,Sự thừa thãi,C2
+Polemic,Cuộc luận chiến,C2
+Pragmatic,Thực dụng,C2
+Precipitate,Làm kết tủa/Thúc đẩy gấp,C2
+Preclude,Ngăn ngừa/Loại trừ,C2
+Precocious,Tảo hôn/Phát triển sớm,C2
+Predilection,Sự ưa chuộng/Thiên vị,C2
+Orange,Quả cam,A1
+Banana,Quả chuối,A1
+Grape,Quả nho,A1
+Melon,Dưa hấu,A1
+Bird,Con chim,A1
+Tiger,Con hổ,A1
+Lion,Con sư tử,A1
+Bear,Con gấu,A1
+Pink,Màu hồng,A1
+Purple,Màu tím,A1
+Gray,Màu xám,A1
+Brown,Màu nâu,A1
+Warm,Ấm áp,A1
+Cool,Mát mẻ,A1
+Tall,Cao lớn,A1
+Short,Thấp/Ngắn,A1
+Thick,Dày,A1
+Thin,Mỏng/Gầy,A1
+Rich,Giàu có,A1
+Poor,Nghèo khó,A1
+Build,Xây dựng,A2
+Clean,Làm sạch,A2
+Draw,Vẽ,A2
+Paint,Sơn/Vẽ tranh,A2
+Cook,Nấu ăn,A2
+Bake,Nướng bánh,A2
+Wash,Giặt/Rửa,A2
+Brush,Chải,A2
+Wear,Mặc/Đeo,A2
+Wait,Chờ đợi,A2
+Hurry,Vội vàng,A2
+Return,Trở về/Trả lại,A2
+Bring,Mang theo,A2
+Catch,Bắt lấy,A2
+Throw,Ném,A2
+Kick,Đá,A2
+Hit,Đánh/Đụng,A2
+Smile,Mỉm cười,A2
+Laugh,Cười lớn,A2
+Cry,Khóc,A2
+Argument,Cuộc tranh luận,B1
+Audience,Khán giả,B1
+Author,Tác giả,B1
+Average,Trung bình,B1
+Award,Giải thưởng,B1
+Background,Bối cảnh,B1
+Base,Cơ sở/Nền tảng,B1
+Behavior,Hành vi,B1
+Belief,Niềm tin,B1
+Belong,Thuộc về,B1
+Beyond,Vượt ra ngoài,B1
+Birth,Sự sinh ra,B1
+Blank,Trống rỗng,B1
+Blind,Mù lòa,B1
+Block,Khối/Ngăn chặn,B1
+Board,Cái bảng/Lên tàu,B1
+Brain,Não bộ,B1
+Branch,Nhánh/Chi nhánh,B1
+Breath,Hơi thở,B1
+Bridge,Cây cầu,B1
+Concept,Khái niệm,B2
+Conclude,Kết luận,B2
+Conduct,Tiến hành/Thực hiện,B2
+Consequence,Hậu quả,B2
+Conservative,Bảo thủ,B2
+Consider,Xem xét,B2
+Consistent,Kiên định/Nhất quán,B2
+Constant,Liên tục/Không đổi,B2
+Construct,Kiến thiết/Xây dựng,B2
+Consume,Tiêu thụ,B2
+Contact,Liên lạc,B2
+Contemporary,Đương đại,B2
+Context,Ngữ cảnh,B2
+Contrast,Sự tương phản,B2
+Contribute,Đóng góp,B2
+Convention,Hội nghị/Tục lệ,B2
+Convince,Thuyết phục,B2
+Corporate,Đoàn thể/Công ty,B2
+Council,Hội đồng,B2
+Credit,Tín dụng/Công trạng,B2
+Deduce,Suy luận,C1
+Defy,Thách thức/Bất tuân,C1
+Denote,Biểu thị/Chứng tỏ,C1
+Depict,Miêu tả/Phác họa,C1
+Derive,Bắt nguồn từ/Lấy từ,C1
+Deter,Ngăn cản/Làm nhụt chí,C1
+Deviate,Trệch hướng,C1
+Dictate,Tuyên bố/Ra lệnh,C1
+Diminish,Làm suy giảm,C1
+Discard,Vứt bỏ/Loại bỏ,C1
+Disclose,Tiết lộ,C1
+Discourse,Bài diễn ngôn/Đàm luận,C1
+Disperse,Phân tán/Giải tán,C1
+Displace,Chiếm chỗ/Hất cẳng,C1
+Dispose,Sắp xếp/Xử lý,C1
+Disregard,Lờ đi/Không bận tâm,C1
+Disrupt,Gây gián đoạn,C1
+Distort,Xuyên tạc/Bóp méo,C1
+Divert,Làm chuyển hướng,C1
+Doctrine,Học thuyết/Giáo lý,C1
+Quell,Dập tắt/Đàn áp,C2
+Querulous,Hay càu nhàu/Than phiền,C2
+Quixotic,Hão huyền/Không thực tế,C2
+Ramification,Hệ lụy/Phân nhánh,C2
+Rancor,Sự thù oán/Ác ý,C2
+Rapacious,Tham lam/Cướp bóc,C2
+Recalcitrant,Ngoan cố/Cứng đầu,C2
+Recant,Rút lại lời nói/Sám hối,C2
+Reclusive,Thích ẩn dật/Tách biệt,C2
+Recondite,Khó hiểu/Thâm thúy,C2
+Redoubtable,Đáng gờm/Đáng kính sợ,C2
+Refractory,Khó chữa/Bướng bỉnh,C2
+Repudiate,Bác bỏ/Từ chối,C2
+Rescind,Hủy bỏ (luật lệ/hợp đồng),C2
+Reticent,Trầm mặc/Kín đáo,C2
+Reverence,Sự tôn kính,C2
+Rhetoric,Thuật hùng biện,C2
+Ribald,Tục tĩu/Lỗ mãng,C2
+Sagacious,Thông minh/Minh mẫn,C2
+Salient,Nổi bật/Trọng yếu,C2
+Cat,Con mèo,A1
+Dog,Con chó,A1
+Pig,Con lợn,A1
+Cow,Con bò,A1
+Horse,Con ngựa,A1
+Sheep,Con cừu,A1
+Chicken,Con gà,A1
+Duck,Con vịt,A1
+Juice,Nước ép,A1
+Sugar,Đường,A1
+Salt,Muối,A1
+Pepper,Hạt tiêu,A1
+Soup,Món súp,A1
+Plate,Cái đĩa,A1
+Bowl,Cái bát,A1
+Fork,Cái nĩa,A1
+Spoon,Cái thìa,A1
+Knife,Con dao,A1
+Bottle,Cái chai,A1
+Glass,Cái ly,A1
+Cup,Cái cốc,A1
+Map,Bản đồ,A1
+Page,Trang sách,A1
+Letter,Lá thư,A1
+Pen,Cái bút,A1
+Loud,Ồn ào,A2
+Quiet,Yên tĩnh,A2
+Heavy,Nặng,A2
+Light,Nhẹ/Ánh sáng,A2
+Strong,Mạnh mẽ,A2
+Weak,Yếu ớt,A2
+Hard,Cứng/Khó khăn,A2
+Soft,Mềm mại,A2
+Full,Đầy,A2
+Empty,Trống rỗng,A2
+Near,Gần,A2
+Far,Xa,A2
+Right,Đúng/Bên phải,A2
+Left,Bên trái,A2
+TRUE,Đúng sự thật,A2
+FALSE,Sai sự thật,A2
+Safe,An toàn,A2
+Dangerous,Nguy hiểm,A2
+Early,Sớm,A2
+Late,Muộn,A2
+Debt,Món nợ,B1
+Decision,Quyết định,B1
+Degree,Bằng cấp/Nhiệt độ,B1
+Delay,Sự trì hoãn,B1
+Demand,Nhu cầu/Yêu cầu,B1
+Department,Phòng ban,B1
+Depth,Độ sâu,B1
+Description,Sự miêu tả,B1
+Desert,Sa mạc,B1
+Design,Thiết kế,B1
+Desire,Khao khát,B1
+Detail,Chi tiết,B1
+Device,Thiết bị,B1
+Diamond,Kim cương,B1
+Diet,Chế độ ăn kiêng,B1
+Difficulty,Sự khó khăn,B1
+Direction,Phương hướng,B1
+Director,Giám đốc/Đạo diễn,B1
+Disaster,Thảm họa,B1
+Disease,Căn bệnh,B1
+Distance,Khoảng cách,B1
+Duty,Nhiệm vụ/Thuế,B1
+Earth,Trái đất,B1
+Effort,Nỗ lực,B1
+Election,Cuộc bầu cử,B1
+Decline,Suy giảm/Từ chối,B2
+Define,Định nghĩa,B2
+Demonstrate,Chứng minh/Biểu tình,B2
+Deny,Phủ nhận,B2
+Depend,Phụ thuộc,B2
+Destroy,Phá hủy,B2
+Determine,Xác định/Quyết tâm,B2
+Develop,Phát triển,B2
+Differ,Khác biệt,B2
+Disappear,Biến mất,B2
+Discover,Khám phá,B2
+Discuss,Thảo luận,B2
+Display,Trưng bày/Hiển thị,B2
+Divide,Phân chia,B2
+Doubt,Nghi ngờ,B2
+Educate,Giáo dục,B2
+Effect,Hiệu ứng/Kết quả,B2
+Emphasize,Nhấn mạnh,B2
+Employ,Thuê mướn/Sử dụng,B2
+Enable,Cho phép/Làm cho có thể,B2
+Encourage,Khuyến khích,B2
+Engage,Tham gia/Đính hôn,B2
+Enhance,Nâng cao/Tăng cường,B2
+Ensure,Đảm bảo,B2
+Establish,Thành lập/Thiết lập,B2
+Eclipse,Sự che khuất/Nhật thực,C1
+Ecstasy,Sự ngây ngất,C1
+Edifice,Công trình kiến trúc đồ sộ,C1
+Efficacy,Tính hiệu quả,C1
+Ego,Cái tôi/Bản ngã,C1
+Elaborate,Tỉ mỉ/Giải thích chi tiết,C1
+Elevate,Nâng lên/Đưa lên,C1
+Elicit,Khơi ra/Moi ra,C1
+Eligible,Đủ điều kiện,C1
+Eliminate,Loại bỏ/Tiêu diệt,C1
+Eloquent,Có tài hùng biện,C1
+Elude,Lẩn tránh/Lảng tránh,C1
+Emanate,Tỏa ra/Phát ra,C1
+Embark,Lên tàu/Bắt đầu,C1
+Embed,Cấy vào/Nhúng vào,C1
+Embody,Hiện thân của,C1
+Embrace,Ôm trọn/Đón nhận,C1
+Emerge,Nổi lên/Xuất hiện,C1
+Emit,Phát ra (ánh sáng/mùi),C1
+Empower,Trao quyền,C1
+Emulate,Tích cực noi gương,C1
+Enact,Ban hành (đạo luật),C1
+Encompass,Bao gồm/Chứa đựng,C1
+Endeavor,Sự cố gắng/Nỗ lực,C1
+Endorse,Tán thành/Chứng thực,C1
+Salubrious,Lành mạnh/Tốt cho sức khỏe,C2
+Sanguine,Lạc quan/Đầy hy vọng,C2
+Sardonic,Nhạo báng/Mỉa mai,C2
+Scintillating,Sắc sảo/Lấp lánh,C2
+Scurrilous,Thô bỉ/Tục tĩu,C2
+Sedulous,Cần mẫn/Siêng năng,C2
+Solicitous,Ân cần/Lo âu,C2
+Somnolent,Buồn ngủ/Gây ngủ,C2
+Specious,Có vẻ đúng nhưng thực ra sai,C2
+Spurious,Giả mạo/Ngụy tạo,C2
+Squalid,Dơ dáy/Tồi tàn,C2
+Staid,Trầm tĩnh/Đứng đắn,C2
+Stentorian,Oang oang/Rất to (giọng nói),C2
+Stolid,Dửng dưng/Không cảm xúc,C2
+Stricture,Sự phê bình gay gắt,C2
+Strident,Chói tai/Gay gắt,C2
+Stultify,Làm mụ mẫm/Làm mất tác dụng,C2
+Supercilious,Kiêu kỳ/Khinh khỉnh,C2
+Surreptitious,Lén lút/Vụng trộm,C2
+Sycophant,Kẻ bợ đỡ/Nịnh hót,C2
+Tacit,Ngầm/Không nói ra,C2
+Taciturn,Ít nói/Lầm lì,C2
+Tantamount,Tương đương với,C2
+Temerity,Sự liều lĩnh/Táo bạo,C2
+Tenuous,Mỏng manh/Yếu ớt,C2
+Potato,Khoai tây,A1
+Tomato,Cà chua,A1
+Onion,Hành tây,A1
+Garlic,Tỏi,A1
+Carrot,Củ cà rốt,A1
+Beef,Thịt bò,A1
+Pork,Thịt lợn,A1
+Butter,Bơ,A1
+Cake,Bánh ngọt,A1
+Cookie,Bánh quy,A1
+Chocolate,Sô cô la,A1
+Pants,Quần dài,A1
+Dress,Váy liền,A1
+Skirt,Chân váy,A1
+Shoe,Chiếc giày,A1
+Sock,Chiếc tất,A1
+Coat,Áo choàng,A1
+Jacket,Áo khoác,A1
+Ring,Cái nhẫn,A1
+Watch,Đồng hồ đeo tay,A1
+Clock,Đồng hồ treo tường,A1
+Time,Thời gian,A1
+Hour,Giờ,A1
+Minute,Phút,A1
+Second,Giây,A1
+Day,Ngày,A1
+Week,Tuần,A1
+Month,Tháng,A1
+Year,Năm,A1
+Monday,Thứ Hai,A1
+Tuesday,Thứ Ba,A1
+Wednesday,Thứ Tư,A1
+Thursday,Thứ Năm,A1
+Friday,Thứ Sáu,A1
+Saturday,Thứ Bảy,A1
+Sunday,Chủ Nhật,A1
+Above,Phía trên,A2
+Below,Phía dưới,A2
+Under,Dưới,A2
+Over,Qua/Trên,A2
+Between,Ở giữa,A2
+Behind,Đằng sau,A2
+Front,Phía trước,A2
+Back,Phía sau,A2
+Middle,Ở giữa,A2
+Next,Tiếp theo,A2
+Beside,Bên cạnh,A2
+Near,Gần,A2
+Far,Xa,A2
+Soon,Sớm/Chẳng bao lâu,A2
+Later,Sau đó,A2
+Always,Luôn luôn,A2
+Never,Không bao giờ,A2
+Often,Thường xuyên,A2
+Sometimes,Thỉnh thoảng,A2
+Usually,Thông thường,A2
+Quickly,Một cách nhanh chóng,A2
+Slowly,Một cách chậm rãi,A2
+Loudly,Ồn ào/Lớn tiếng,A2
+Quietly,Một cách yên tĩnh,A2
+Carefully,Một cách cẩn thận,A2
+Well,Tốt/Khỏe,A2
+Badly,Tồi tệ/Nặng nề,A2
+Easy,Dễ dàng,A2
+Hard,Cứng/Khó khăn,A2
+Simple,Đơn giản,A2
+Access,Sự truy cập,B1
+Accident,Tai nạn,B1
+Active,Năng động,B1
+Actor,Nam diễn viên,B1
+Actual,Thực tế,B1
+Admit,Thừa nhận,B1
+Adult,Người lớn,B1
+Advance,Sự thăng tiến/Tiến lên,B1
+Advantage,Lợi thế,B1
+Advice,Lời khuyên,B1
+Agency,Đại lý/Cơ quan,B1
+Agent,Đại diện/Đặc vụ,B1
+Agree,Đồng ý,B1
+Ahead,Phía trước,B1
+Allow,Cho phép,B1
+Almost,Hầu như,B1
+Alone,Một mình,B1
+Along,Dọc theo,B1
+Already,Đã rồi,B1
+Also,Cũng/Ngoài ra,B1
+Amount,Số lượng,B1
+Animal,Động vật,B1
+Another,Khác/Cái khác,B1
+Answer,Câu trả lời,B1
+Anyone,Bất cứ ai,B1
+Anything,Bất cứ điều gì,B1
+Appear,Xuất hiện,B1
+Apply,Áp dụng/Ứng tuyển,B1
+Approach,Phương pháp/Tiếp cận,B1
+Area,Khu vực,B1
+Argue,Tranh luận,B1
+Around,Xung quanh,B1
+Arrive,Đến nơi,B1
+Article,Bài báo/Điều khoản,B1
+Artist,Nghệ sĩ,B1
+Assume,Cho rằng/Giả định,B1
+Attack,Tấn công,B1
+Absolute,Tuyệt đối,B2
+Academic,Học thuật,B2
+Acceptable,Có thể chấp nhận,B2
+Accurate,Chính xác,B2
+Achieve,Đạt được,B2
+Acknowledge,Công nhận,B2
+Acquire,Thu nhận/Đạt được,B2
+Adapt,Thích nghi,B2
+Additional,Bổ sung,B2
+Adequate,Đầy đủ/Thỏa đáng,B2
+Adjust,Điều chỉnh,B2
+Administration,Sự quản trị/Hành chính,B2
+Adopt,Nhận nuôi/Áp dụng,B2
+Advocate,Người ủng hộ/Biện hộ,B2
+Affect,Ảnh hưởng đến,B2
+Aggregate,Tổng số/Tập hợp,B2
+Alternative,Sự thay thế,B2
+Ambiguous,Mơ hồ,B2
+Analyze,Phân tích,B2
+Anticipate,Dự đoán/Lường trước,B2
+Apparent,Rõ ràng/Hiển nhiên,B2
+Append,Đính kèm/Thêm vào,B2
+Appreciate,Trân trọng/Đánh giá cao,B2
+Appropriate,Thích hợp,B2
+Approximate,Xấp xỉ,B2
+Arbitrary,Tùy ý/Độc đoán,B2
+Aspect,Khía cạnh,B2
+Assemble,Lắp ráp/Tập hợp,B2
+Assess,Đánh giá,B2
+Assign,Phân công,B2
+Assist,Hỗ trợ,B2
+Assure,Cam đoan,B2
+Attach,Đính kèm,B2
+Attain,Đạt được,B2
+Bias,Sự thiên vị,C1
+Bulk,Phần lớn/Kích thước lớn,C1
+Capable,Có khả năng,C1
+Capacity,Sức chứa/Năng lực,C1
+Cease,Ngừng/Chấm dứt,C1
+Cite,Trích dẫn,C1
+Civil,Dân sự/Văn minh,C1
+Clause,Điều khoản/Mệnh đề,C1
+Code,Mật mã/Quy tắc,C1
+Coherent,Mạch lạc,C1
+Coincide,Trùng hợp,C1
+Collapse,Sụp đổ,C1
+Colleague,Đồng nghiệp,C1
+Commence,Bắt đầu,C1
+Commission,Hội đồng/Tiền hoa hồng,C1
+Commit,Cam kết/Phạm (tội),C1
+Commodity,Hàng hóa,C1
+Communicate,Giao tiếp,C1
+Compel,Ép buộc,C1
+Compensate,Bồi thường,C1
+Compile,Biên soạn/Tổng hợp,C1
+Complement,Phần bù/Bổ sung,C1
+Complex,Phức tạp,C1
+Component,Thành phần,C1
+Compound,Hợp chất/Phức hợp,C1
+Comprehensive,Toàn diện,C1
+Comprise,Bao gồm,C1
+Compute,Tính toán,C1
+Conceive,Nhận thức/Tưởng tượng,C1
+Concentrate,Tập trung,C1
+Concept,Khái niệm,C1
+Conclude,Kết luận,C1
+Concurrent,Đồng thời,C1
+Conduct,Tiến hành/Cư xử,C1
+Confer,Trao đổi/Ban cho,C1
+Confine,Giam cầm/Hạn chế,C1
+Confirm,Xác nhận,C1
+Conflict,Xung đột,C1
+Conform,Tuân thủ/Phù hợp,C1
+Consent,Sự đồng ý/Bằng lòng,C1
+Tenable,Có thể bảo vệ/Giữ vững được,C2
+Tendentious,Có tính thiên vị/Có mục đích,C2
+Tenuous,Mỏng manh/Thiếu cơ sở,C2
+Timorous,Sợ hãi/Nhút nhát,C2
+Tirade,Bài diễn văn chỉ trích dài,C2
+Torpor,Sự uể oải/Tê liệt,C2
+Tortuous,Quanh co/Uẩn khúc,C2
+Tractable,Dễ bảo/Dễ kiểm soát,C2
+Transient,Thoáng qua/Nhất thời,C2
+Trenchant,Sắc sảo/Đanh thép,C2
+Truculent,Ngỗ ngược/Thích sinh sự,C2
+Truncate,Cắt cụt,C2
+Tumult,Sự ồn ào/Sự hỗn loạn,C2
+Turbid,Đục ngầu/Hỗn độn,C2
+Turgid,Sưng phù/Khoa trương,C2
+Turpitude,Sự đồi bại/Xấu xa,C2
+Ubiquitous,Có mặt khắp nơi,C2
+Umbrage,Sự phật ý/Sự mếch lòng,C2
+Unctuous,Nịnh nọt/Trơn tuột,C2
+Undulate,Gợn sóng/Nhấp nhô,C2
+Upbraid,Trách mắng/Quở trách,C2
+Urbane,Lịch sự/Nhã nhặn,C2
+Usurp,Cướp ngôi/Chiếm đoạt,C2
+Vacillate,Dao động/Lưỡng lự,C2
+Vacuous,Trống rỗng/Ngớ ngẩn,C2
+Vagary,Sự thay đổi thất thường,C2
+Vapid,Nhạt nhẽo/Vô vị,C2
+Vehement,Kịch liệt/Dữ dội,C2
+Venal,Dễ mua chuộc/Vụ lợi,C2
+Venerate,Tôn kính,C2
+Veracity,Tính chân thực,C2
+Verbose,Dài dòng/Lắm lời,C2
+Vestige,Vết tích/Dấu vết,C2
+Vex,Làm bực mình/Làm phiền,C2
+Vicarious,Cảm nhận thay/Th 간 tiếp,C2
+Vicissitude,Sự thăng trầm,C2
+Vilify,Phỉ báng/Nói xấu,C2
+Vindicate,Minh oan/Bào chữa,C2
+Virtuoso,Bậc thầy/Nghệ sĩ điêu luyện,C2
+Vitriolic,Chua chát/Cay độc (lời nói),C2
