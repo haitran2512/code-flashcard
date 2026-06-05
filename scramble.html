@@ -113,8 +113,15 @@
 
     </div>
 
+       <script id="vocab-data" type="application/json">
+        {{ vocab_list | tojson | safe }}
+    </script>
+
     <script>
-        const vocabList = {{ vocab_list | tojson }};
+        // Lấy dữ liệu từ thẻ ảo ở trên và dịch ra
+        const rawData = document.getElementById('vocab-data').textContent;
+        const vocabList = JSON.parse(rawData);
+        
         let currentWordIndex = 0;
         let score = 0;
         let currentWordObj = null;
