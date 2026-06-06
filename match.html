@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Nối Từ - Pro Flashcard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
         body { background: linear-gradient(135deg, #1abc9c, #2980b9); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; color: white;}
         
         .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { font-size: 36px; margin-bottom: 10px; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header h1 { font-size: 36px; margin-bottom: 10px; text-shadow: 0 2px 5px rgba(0,0,0,0.2); font-weight: 800;}
         .header p { font-size: 16px; opacity: 0.9; }
 
         .game-board {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* TĂNG LÊN 5 CỘT ĐỂ ĐỰNG ĐỦ 20 THẺ */
+            grid-template-columns: repeat(5, 1fr);
             gap: 15px;
-            max-width: 1000px; /* NỚI RỘNG BẢNG */
+            max-width: 1000px;
             width: 100%;
         }
 
@@ -24,7 +25,7 @@
             background: white;
             color: #2c3e50;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 700;
             padding: 20px 10px;
             border-radius: 10px;
             text-align: center;
@@ -82,7 +83,8 @@
     <a href="/quiz" class="btn-next" id="btnNext">🚀 Chuyển sang làm bài Test</a>
 
     <script>
-        const vocabList = {{ vocab_list | tojson }};
+        // Cách gọi dữ liệu chuẩn nhất, GHI NHỚ PHẢI CÓ | safe
+        const vocabList = {{ vocab_list | tojson | safe }};
         let cardsData = [];
         
         vocabList.forEach(item => {
@@ -90,7 +92,11 @@
             cardsData.push({ text: item.meaning, id: item.id, type: 'meaning' });
         });
 
-        cardsData.sort(() => Math.random() - 0.5);
+        // Xáo trộn mảng chuẩn Fisher-Yates
+        for (let i = cardsData.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [cardsData[i], cardsData[j]] = [cardsData[j], cardsData[i]];
+        }
 
         const gameBoard = document.getElementById('gameBoard');
         let firstCard = null;
@@ -104,6 +110,7 @@
             cardEl.classList.add('game-card');
             cardEl.innerText = data.text;
             cardEl.dataset.id = data.id;
+            cardEl.dataset.type = data.type; 
             
             cardEl.addEventListener('click', () => handleCardClick(cardEl));
             gameBoard.appendChild(cardEl);
@@ -111,6 +118,13 @@
 
         function handleCardClick(card) {
             if (lockBoard || card === firstCard || card.classList.contains('matched')) return;
+
+            if (firstCard && firstCard.dataset.type === card.dataset.type) {
+                firstCard.classList.remove('selected');
+                firstCard = card;
+                firstCard.classList.add('selected');
+                return;
+            }
 
             card.classList.add('selected');
 
@@ -141,7 +155,6 @@
             pairsMatched++;
             resetBoard();
 
-            // KHI CHIẾN THẮNG -> HIỆN NÚT VÀO LÀM QUIZ
             if (pairsMatched === totalPairs) {
                 setTimeout(() => {
                     const btn = document.getElementById('btnNext');
