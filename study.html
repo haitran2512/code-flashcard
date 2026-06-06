@@ -78,12 +78,11 @@
     </script>
 
     <script>
-        // Lấy dữ liệu từ thẻ ảo ở trên và dịch ra
+        // 2. JS lấy dữ liệu ra an toàn và gán vào biến flashcards
         const rawData = document.getElementById('vocab-data').textContent;
-        const vocabList = JSON.parse(rawData);
+        const flashcards = JSON.parse(rawData);
         
-        let currentWordIndex = 0;
-        let score = 0;
+        let currentCardIndex = 0; // Đã sửa lại tên biến chuẩn
         const totalCards = flashcards.length;
         
         document.getElementById('totalCards').innerText = totalCards;
