@@ -18,7 +18,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(100), nullable=False) # Đã có cột mật khẩu
+    password = db.Column(db.String(100), nullable=False)
     stage = db.Column(db.Integer, default=1)
     level = db.Column(db.String(2), default="A1")
 
@@ -42,15 +42,12 @@ class UserCard(db.Model):
 @app.route("/home")
 def home():
     if "user_id" in session:
-        user = User.query.get(session["user_id"])
+        # Cập nhật cú pháp mới: db.session.get() thay cho query.get()
+        user = db.session.get(User, session["user_id"])
         
-        # 1. Đếm tổng số từ của Band/Level hiện tại (Ví dụ tổng số từ A1)
         total_words = Vocabulary.query.filter_by(level=user.level).count()
-        
-        # 2. Lấy danh sách các từ vựng thuộc Level đó
         level_words = [w.word for w in Vocabulary.query.filter_by(level=user.level).all()]
         
-        # 3. Đếm số từ user ĐÃ THUỘC (status=1) nằm trong Level này
         learned_words = 0
         if level_words:
             learned_words = UserCard.query.filter(
@@ -59,7 +56,6 @@ def home():
                 UserCard.word.in_(level_words)
             ).count()
         
-        # 4. Tính toán % hoàn thành
         progress = 0
         if total_words > 0:
             progress = round((learned_words / total_words) * 100)
@@ -97,20 +93,18 @@ def login():
         user_password = request.form["password"] 
         session.permanent = True
         
-        # Lấy thông tin user dựa trên tên đăng nhập trước
         user = User.query.filter_by(name=user_name).first()
         
         if user:
-            # Nếu tên đăng nhập đúng, kiểm tra tiếp mật khẩu
             if user.password == user_password:
                 session["user"] = user.name
                 session["user_id"] = user.id
                 return redirect(url_for("home"))
             else:
-                flash("Sai mật khẩu!", "error") # Sai mật khẩu
+                flash("Sai mật khẩu!", "error")
                 return redirect(url_for("login"))
         else:
-            flash("Sai tài khoản!", "error") # Không tìm thấy tên đăng nhập
+            flash("Sai tài khoản!", "error")
             return redirect(url_for("login"))
 
     if "user_id" in session: 
@@ -130,7 +124,7 @@ def placement_test():
 
     if request.method == "POST":
         selected_level = request.form.get("cefr_level") 
-        current_user = User.query.get(session["user_id"])
+        current_user = db.session.get(User, session["user_id"])
         
         if current_user and selected_level:
             current_user.level = selected_level
@@ -175,7 +169,6 @@ def reset_password():
             
     return render_template("reset_password.html")
 
-# GIAO DIỆN HỌC FLASHCARD
 # ==========================================
 # GIAO DIỆN HỌC FLASHCARD (20 TỪ)
 # ==========================================
@@ -185,24 +178,19 @@ def study():
         flash("Bạn cần đăng nhập để vào học!", "error")
         return redirect(url_for("login"))
         
-    user = User.query.get(session["user_id"])
+    user = db.session.get(User, session["user_id"])
     
-    # 1. Quét tìm các từ "Chưa thuộc" (status = 0) trong Database
     weak_cards = UserCard.query.filter_by(user_id=user.id, status=0).all()
     weak_words = [card.word for card in weak_cards]
     
     vocab_review = []
     if weak_words:
-        # Lấy thông tin đầy đủ của các từ yếu (Tối đa 20 từ)
         vocab_review = Vocabulary.query.filter(Vocabulary.word.in_(weak_words)).order_by(db.func.random()).limit(20).all()
         
     vocab_list = [{"id": w.id, "word": w.word, "meaning": w.meaning} for w in vocab_review]
     
-    # 2. Nếu từ chưa thuộc ít hơn 20 từ, bù thêm từ MỚI vào cho đủ quota
     if len(vocab_list) < 20:
         needed = 20 - len(vocab_list)
-        
-        # Tìm các từ ĐÃ TỪNG HỌC (cả thuộc và chưa thuộc) để loại trừ, không bốc lại
         all_learned_cards = UserCard.query.filter_by(user_id=user.id).all()
         learned_words = [card.word for card in all_learned_cards]
         
@@ -215,18 +203,13 @@ def study():
         for w in new_words:
             vocab_list.append({"id": w.id, "word": w.word, "meaning": w.meaning})
     
-    # Nếu học hết sạch Database
     if not vocab_list:
         vocab_list = [{"id": 0, "word": "Tuyệt vời", "meaning": "Cậu đã học thuộc toàn bộ từ vựng Level này!"}]
     else:
-        # Lưu ID vào session cho bài Quiz
         session['current_study_ids'] = [w['id'] for w in vocab_list if w['id'] != 0]
 
     return render_template("study.html", vocab_list=vocab_list, user=user)
 
-# ==========================================
-# BÀI TEST 10 CÂU TRẮC NGHIỆM
-# ==========================================
 # ==========================================
 # BÀI TEST & LƯU KẾT QUẢ VÀO DATABASE
 # ==========================================
@@ -235,9 +218,8 @@ def quiz():
     if "user_id" not in session: 
         return redirect(url_for("login"))
         
-    user = User.query.get(session["user_id"])
+    user = db.session.get(User, session["user_id"])
         
-    # --- KHI NGƯỜI DÙNG NỘP BÀI ---
     if request.method == "POST":
         score = 0
         correct_answers = session.get('quiz_answers', {})
@@ -246,28 +228,24 @@ def quiz():
             user_ans = request.form.get(f"q_{q_id}")
             word_text = data["word"]
             
-            # Tìm thẻ từ hiện tại trong Database
             existing_card = UserCard.query.filter_by(user_id=user.id, word=word_text).first()
             
             if user_ans == data["meaning"]:
                 score += 1
-                # NẾU TRẢ LỜI ĐÚNG -> Đánh dấu Đã thuộc (1)
                 if existing_card:
                     existing_card.status = 1
                 else:
                     new_card = UserCard(user_id=user.id, word=word_text, meaning=data["meaning"], status=1)
                     db.session.add(new_card)
             else:
-                # NẾU TRẢ LỜI SAI -> Đánh dấu Chưa thuộc (0) để nhốt vào Sổ Tay
                 if existing_card:
                     existing_card.status = 0
                 else:
                     new_card = UserCard(user_id=user.id, word=word_text, meaning=data["meaning"], status=0)
                     db.session.add(new_card)
                     
-        db.session.commit() # Chốt lưu vào Database
+        db.session.commit() 
         
-        # Báo kết quả ra màn hình chính
         if score == 10:
             flash("🎉 Xuất sắc tuyệt đối! Đạt 10/10 điểm.", "success")
         else:
@@ -275,7 +253,6 @@ def quiz():
             
         return redirect(url_for("home"))
         
-    # --- KHI TẠO ĐỀ THI MỚI ---
     study_ids = session.get('current_study_ids', [])
     if not study_ids:
         return redirect(url_for("study"))
@@ -316,14 +293,13 @@ def mark_word():
     data = request.get_json()
     word_str = data.get("word")
     meaning_str = data.get("meaning")
-    status = data.get("status") # 0 = Chưa thuộc, 1 = Đã thuộc
+    status = data.get("status") 
     
-    user = User.query.get(session["user_id"])
+    user = db.session.get(User, session["user_id"])
     
-    # Kiểm tra xem từ này đã có trong danh sách của User chưa
     card = UserCard.query.filter_by(user_id=user.id, word=word_str).first()
     if card:
-        card.status = status # Cập nhật trạng thái
+        card.status = status 
     else:
         new_card = UserCard(user_id=user.id, word=word_str, meaning=meaning_str, status=status)
         db.session.add(new_card)
@@ -339,14 +315,13 @@ def review():
     if "user_id" not in session:
         return redirect(url_for("login"))
         
-    user = User.query.get(session["user_id"])
-    # Lấy toàn bộ các từ bị đánh dấu "Chưa thuộc" (status = 0)
+    user = db.session.get(User, session["user_id"])
     weak_words = UserCard.query.filter_by(user_id=user.id, status=0).all()
     
     return render_template("review.html", weak_words=weak_words, user=user)
 
 # ==========================================
-# MINI GAME: NỐI TỪ (ĐỒNG BỘ VỚI QUIZ)
+# MINI GAME: NỐI TỪ 
 # ==========================================
 @app.route("/match")
 def match():
@@ -354,24 +329,21 @@ def match():
         flash("Bạn cần đăng nhập để chơi game!", "error")
         return redirect(url_for("login"))
 
-    user = User.query.get(session["user_id"])
+    user = db.session.get(User, session["user_id"])
 
-    # 1. Tăng lên 10 từ (Sẽ tạo ra 20 thẻ lật)
     match_words = Vocabulary.query.filter_by(level=user.level).order_by(db.func.random()).limit(10).all()
     
     if not match_words:
         flash("Chưa có từ vựng nào để chơi game!", "error")
         return redirect(url_for("home"))
 
-    # 2. LƯU 10 TỪ NÀY VÀO SESSION (Để lát nữa trang Quiz lấy đúng 10 từ này ra hỏi)
     session['current_study_ids'] = [w.id for w in match_words]
-
     vocab_list = [{"id": w.id, "word": w.word, "meaning": w.meaning} for w in match_words]
 
     return render_template("match.html", vocab_list=vocab_list)
 
 # ==========================================
-# MINI GAME: XẾP CHỮ (CÓ TÍNH VÀO TIẾN ĐỘ)
+# MINI GAME: XẾP CHỮ 
 # ==========================================
 @app.route("/scramble")
 def scramble():
@@ -379,19 +351,41 @@ def scramble():
         flash("Bạn cần đăng nhập để chơi game!", "error")
         return redirect(url_for("login"))
 
-    user = User.query.get(session["user_id"])
+    user = db.session.get(User, session["user_id"])
 
-    # Bốc ngẫu nhiên 10 từ vựng theo Level của user
     words = Vocabulary.query.filter_by(level=user.level).order_by(db.func.random()).limit(10).all()
     
     if not words:
         flash("Chưa có từ vựng nào để chơi game!", "error")
         return redirect(url_for("home"))
 
-    # GIỮ NGUYÊN TỪ GỐC để gửi về Server chấm điểm
     vocab_list = [{"word": w.word, "meaning": w.meaning} for w in words]
 
     return render_template("scramble.html", vocab_list=vocab_list)
+
+# ==========================================
+# ROUTE BỊ THIẾU: LƯU TỪ SAI CỦA GAME XẾP CHỮ
+# ==========================================
+@app.route("/scramble_wrong", methods=["POST"])
+def scramble_wrong():
+    if "user_id" not in session:
+        return jsonify({"error": "Chưa đăng nhập"}), 401
+        
+    data = request.get_json()
+    word_text = data.get("word")
+    meaning_text = data.get("meaning")
+    user_id = session["user_id"]
+    
+    existing_card = UserCard.query.filter_by(user_id=user_id, word=word_text).first()
+    
+    if existing_card:
+        existing_card.status = 0
+    else:
+        new_card = UserCard(user_id=user_id, word=word_text, meaning=meaning_text, status=0)
+        db.session.add(new_card)
+        
+    db.session.commit()
+    return jsonify({"success": True})
 
 
 # ==========================================
