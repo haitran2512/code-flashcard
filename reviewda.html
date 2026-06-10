@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sổ Tay Từ Khó</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========================================= */
+        /* 1. KHU VỰC TRANG TRÍ (CSS)                */
+        /* ========================================= */
+
+        /* --- CÀI ĐẶT CHUNG TOÀN TRANG --- */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; /* Thay đổi font chữ ở đây */
+        }
+        
+        /* --- NỀN TOÀN BỘ TRANG WEB --- */
+        body { 
+            /* Sửa dải màu nền ở đây (Đang đồng bộ từ xanh sáng sang xanh dương đậm) */
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            color: #2c3e50; /* Màu chữ mặc định */
+            padding: 40px 20px; 
+            min-height: 100vh;
+        }
+
+        /* --- KHUNG CHỨA TRUNG TÂM (Căn hộp ra giữa màn hình) --- */
+        .container { 
+            max-width: 750px; /* Sửa độ rộng (to/nhỏ) của toàn bộ khối nội dung */
+            margin: 0 auto; 
+        }
+
+        /* --- THANH ĐIỀU HƯỚNG PHÍA TRÊN (Chứa nút Quay lại) --- */
+        .nav-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px; /* Khoảng cách từ nút Quay lại xuống hộp màu trắng phía dưới */
+        }
+
+        /* Nút quay lại trang chủ hình viên thuốc màu trắng */
+        .btn-back { 
+            color: #4a5568; 
+            text-decoration: none; /* Xóa gạch chân chữ */
+            font-weight: 600; 
+            display: inline-flex;
+            align-items: center;
+            gap: 8px; /* Khoảng cách giữa icon mũi tên và chữ "Trang chủ" */
+            background: white; /* Màu nền của nút */
+            padding: 10px 18px; 
+            border-radius: 30px; /* Bo tròn xoe nút thành hình viên thuốc */
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); /* Đổ bóng nhẹ */
+            transition: all 0.2s; 
+            font-size: 14px; 
+        }
+
+        /* Hiệu ứng khi di chuột vào nút Quay lại */
+        .btn-back:hover { 
+            background: #3498db; /* Đổi nền sang màu xanh dương */
+            color: white; /* Đổi chữ sang màu trắng */
+            transform: translateX(-3px); /* Nút tự động giật nhẹ sang trái 3px */
+        }
+
+        /* --- HỘP TRẮNG LỚN CHỨA NỘI DUNG CHÍNH (MAIN CARD) --- */
+        .main-card {
+            background: white; 
+            padding: 35px; 
+            border-radius: 20px; /* Độ bo tròn 4 góc của hộp trắng */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+        }
+
+        /* Khung tiêu đề gồm chữ "Sổ Tay Từ Khó" + Cái Badge đếm số từ */
+        .header-title { 
+            display: flex; 
+            justify-content: space-between; /* Đẩy chữ sang mép trái, Badge đếm từ sang mép phải */
+            align-items: center; 
+            border-bottom: 2px solid #f1f3f5; /* Đường kẻ ngang nhạt màu xám để phân cách */
+            padding-bottom: 20px; 
+            margin-bottom: 20px; 
+        }
+
+        /* Chữ tiêu đề "Sổ Tay Từ Khó" */
+        h1 { 
+            color: #e74c3c; /* Màu chữ (Đang để màu đỏ báo từ khó) */
+            font-size: 26px; 
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Khoảng cách giữa icon cuốn sách và chữ */
+        }
+
+        /* CÁI BADGE ĐẾM SỐ TỪ CẦN ÔN (Hộp màu hồng nhỏ bên phải) */
+        .badge-count {
+            background: #fde8e8; /* Màu nền hồng nhạt */
+            color: #e74c3c; /* Màu chữ đỏ */
+            font-size: 14px; 
+            padding: 4px 12px; 
+            border-radius: 20px; /* Bo tròn hộp */
+            font-weight: bold; 
+        }
+
+        /* Đoạn văn mô tả ngắn ở dưới tiêu đề */
+        .sub-text {
+            color: #718096; /* Chữ xám nhạt */
+            font-size: 15px; 
+            line-height: 1.6; 
+            margin-bottom: 25px; /* Khoảng cách từ đoạn văn xuống danh sách từ vựng */
+        }
+
+        /* --- DANH SÁCH CÁC THẺ TỪ VỰNG --- */
+        .word-list { 
+            list-style: none; 
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* Khoảng cách giữa các dòng từ với nhau */
+        }
+
+        /* Thiết kế cho 1 dòng từ vựng (Khối xám nhạt) */
+        .word-item { 
+            display: flex; 
+            justify-content: space-between; /* Đẩy từ tiếng Anh sang trái, nghĩa tiếng Việt sang phải */
+            align-items: center;
+            padding: 18px 24px; 
+            background: #f8fafc; /* Màu nền mặc định của dòng */
+            border-left: 5px solid #e74c3c; /* Thanh dọc màu đỏ ở bên mép trái của dòng */
+            border-radius: 12px; /* Bo góc dòng từ */
+            transition: all 0.25s ease; 
+        }
+
+        /* Hiệu ứng khi di chuột vào 1 dòng từ vựng */
+        .word-item:hover { 
+            background: #fff5f5; /* Nền chuyển sang hồng cực nhạt */
+            transform: translateY(-2px); /* Dòng từ nổi nhẹ lên trên 2px */
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.08); /* Đổ bóng hồng mờ */
+        }
+
+        /* Cụm bên trái (Gồm icon ngôi sao + chữ tiếng Anh) */
+        .word-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Biểu tượng ngôi sao mặc định (Màu xám nhạt) */
+        .word-icon {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        /* Khi di chuột vào dòng từ, ngôi sao sẽ biến thành màu đỏ và nhấp nháy */
+        .word-item:hover .word-icon {
+            color: #e74c3c;
+            animation: pulse 1s infinite; /* Chạy hiệu ứng nhấp nháy pulse vô hạn */
+        }
+
+        /* Chữ Tiếng Anh */
+        .eng-word { 
+            font-weight: 700; 
+            color: #1e293b; /* Màu chữ xanh đen đậm */
+            font-size: 19px; 
+            letter-spacing: 0.3px;
+        }
+
+        /* Ô CHỨA NGHĨA TIẾNG VIỆT (Hộp màu trắng bên phải) */
+        .vie-meaning { 
+            color: #475569; 
+            font-size: 16px;
+            font-weight: 500;
+            background: white; /* Nền trắng tạo sự phân biệt */
+            padding: 6px 16px; 
+            border-radius: 8px; /* Bo góc hộp chứa nghĩa */
+            border: 1
