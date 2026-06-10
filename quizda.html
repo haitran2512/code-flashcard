@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Kiểm Tra - Pro Flashcard</title>
+    <style>
+        /* ========================================= */
+        /* 1. KHU VỰC TRANG TRÍ (CSS)                */
+        /* ========================================= */
+
+        /* --- CÀI ĐẶT CHUNG (Xóa lề thừa, đặt font chữ) --- */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Đổi font chữ bài thi ở đây */
+        }
+
+        /* --- NỀN TOÀN BỘ TRANG BÀI QUIZ --- */
+        body { 
+            /* Đổi màu nền ở đây (Đang là dải màu từ xanh dương sang tím) */
+            background: linear-gradient(120deg, #2980b9, #8e44ad); 
+            min-height: 100vh; 
+            padding: 40px 20px; 
+        }
+        
+        /* --- HỘP TRẮNG LỚN BAO QUANH ĐỀ THI --- */
+        .quiz-container { 
+            background: #ffffff; /* Màu nền của hộp đề thi */
+            max-width: 800px; /* Độ rộng tối đa của form bài thi */
+            margin: 0 auto; /* Căn hộp ra chính giữa màn hình theo chiều ngang */
+            padding: 40px; /* Khoảng cách từ viền trắng vào đến nội dung câu hỏi bên trong */
+            border-radius: 12px; /* Độ bo tròn 4 góc của hộp */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); /* Đổ bóng cho hộp nổi lên trên nền */
+        }
+
+        /* --- PHẦN ĐẦU TRANG (Tiêu đề bài kiểm tra) --- */
+        .quiz-header { 
+            text-align: center; /* Căn chữ giữa */
+            margin-bottom: 30px; /* Khoảng cách đẩy các câu hỏi ở dưới ra xa */
+            border-bottom: 2px dashed #ddd; /* Đường kẻ đứt quãng màu xám nhạt để ngăn cách */
+            padding-bottom: 20px;
+        }
+        .quiz-header h2 { color: #2c3e50; font-size: 28px; } /* Sửa màu và cỡ chữ dòng "Kiểm Tra Trí Nhớ" */
+        .quiz-header p { color: #666; margin-top: 10px; } /* Sửa màu chữ dòng mô tả nhỏ ở dưới */
+
+        /* --- KHỐI BỌC MỖI CÂU HỎI (Hộp màu xám nhạt) --- */
+        .question-block { 
+            background: #f8f9fa; /* Màu nền của hộp câu hỏi */
+            padding: 25px; 
+            border-radius: 10px; /* Bo góc hộp câu hỏi */
+            margin-bottom: 25px; /* Khoảng cách giữa câu hỏi này với câu hỏi tiếp theo */
+            border-left: 5px solid #3498db; /* Thanh vạch dọc màu xanh lam ở bên trái câu hỏi */
+        }
+
+        /* Dòng chữ câu hỏi ("Câu 1: Nghĩa của từ...") */
+        .question-text { 
+            font-size: 20px; 
+            font-weight: bold; 
+            color: #2c3e50; 
+            margin-bottom: 20px; /* Khoảng cách từ chữ câu hỏi xuống các đáp án trắc nghiệm */
+        }
+        
+        /* Chữ nằm trong dấu ngoặc kép ứng với từ tiếng Anh cần hỏi */
+        .question-text span { 
+            color: #e74c3c; /* Sửa màu của từ tiếng Anh (Đang để màu đỏ nổi bật) */
+            font-size: 24px; /* Cỡ chữ của từ tiếng Anh to hơn chữ thường một xíu */
+        }
+
+        /* --- CÁC Ô ĐÁP ÁN TRẮC NGHIỆM ĐỂ LỰA CHỌN --- */
+        .options label { 
+            display: block; 
+            margin-bottom: 12px; /* Khoảng cách giữa các ô đáp án với nhau */
+            cursor: pointer; /* Biến chuột thành hình bàn tay khi chỉ vào đáp án */
+            padding: 15px; /* Độ rộng không gian bên trong ô đáp án */
+            border: 2px solid #e0e0e0; /* Viền xám bao quanh ô đáp án */
+            border-radius: 8px; /* Bo tròn góc ô đáp án */
+            transition: 0.3s; /* Hiệu ứng đổi màu mượt mà mất 0.3 giây */
+            background: white; 
+            font-size: 16px; 
+            font-weight: 500; 
+            color: #444;
+        }
+        
+        /* Hiệu ứng ĐỔI MÀU khi người dùng di chuột vào ô đáp án */
+        .options label:hover { 
+            background: #eaf2f8; /* Đổi nền sang màu xanh dương cực nhạt */
+            border-color: #3498db; /* Đổi viền sang màu xanh lam sáng */
+        }
+
+        /* Nút tròn tích chọn trắc nghiệm */
+        .options input[type="radio"] { 
+            margin-right: 15px; /* Khoảng cách từ nút tròn đến chữ đáp án */
+            transform: scale(1.3); /* Phóng to nút tròn lên 1.3 lần cho dễ tích */
+            accent-color: #3498db; /* Đổi màu dấu tích chọn thành màu xanh lam */
+        }
+
+        /* --- NÚT "NỘP BÀI & XEM ĐIỂM" TO ĐÙNG Ở DƯỚI CÙNG --- */
+        .btn-submit { 
+            width: 100%; /* Nút kéo dài 100% bằng độ rộng của hộp */
+            padding: 18px; 
+            background: #27ae60; /* Màu nền mặc định của nút (Màu xanh lá cây) */
+            border: none; 
+            border-radius: 10px; /* Bo góc nút bấm */
+            color: white; /* Màu chữ trên nút */
+            font-size: 20px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3); /* Tạo bóng đổ màu xanh lá cho nút trông xịn hơn */
+            margin-top: 10px;
+        }
+        
+        /* Hiệu ứng lún xuống và đổi màu khi di chuột vào nút Nộp bài */
+        .btn-submit:hover { 
+            background: #219653; /* Đổi sang xanh lá đậm hơn */
+            transform: translateY(-2px); /* Nút trồi lên nhẹ 2px tạo cảm giác tương tác */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        
+        <div class="quiz-header">
+            <h2>Kiểm Tra Trí Nhớ 🧠</h2>
+            <p>Chọn nghĩa tiếng Việt chính xác nhất cho các từ vựng cậu vừa học nhé!</p>
+        </div>
+
+        <form action="/quiz" method="POST">
+            
+            {% for q in questions %}
+            
+            <div class="question-block">
+                <div class="question-text">Câu {{ q.id }}: Nghĩa của từ <span>"{{ q.word }}"</span> là gì?</div>
+                
+                <div class="options">
+                    
+                    {% for opt in q.options %}
+                    <label>
+                        <input type="radio" name="q_{{ q.id }}" value="{{ opt }}" required> 
+                        {{ opt }} </label>
+                    {% endfor %} </div>
+            </div>
+            {% endfor %} <button type="submit" class="btn-submit">Nộp Bài & Xem Điểm</button>
+            
+        </form>
+    </div>
+
+</body>
+</html>
