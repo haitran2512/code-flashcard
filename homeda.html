@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ - Pro Flashcard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================= */
+        /* 1. KHU VỰC TRANG TRÍ (CSS)                */
+        /* ========================================= */
+
+        /* --- CÀI ĐẶT CHUNG (Xóa lề thừa, áp dụng font chữ) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* --- NỀN CỦA TOÀN BỘ TRANG WEB --- */
+        body {
+            background-color: #f4f7f6; /* Màu xám nhạt */
+            color: #2c3e50; /* Chữ màu xám đen */
+            line-height: 1.6;
+        }
+
+        /* --- THÔNG BÁO FLASH (Cái hộp hiện ra ở góc phải màn hình) --- */
+        .flash-container {
+            position: fixed; /* Ghim chết ở góc màn hình */
+            top: 20px;
+            right: 20px;
+            z-index: 9999; /* Luôn nổi lên trên cùng */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        /* Hiệu ứng của 1 dòng thông báo */
+        .flash-msg {
+            background-color: #ffffff;
+            color: #2c3e50;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            font-weight: 700;
+            font-size: 15px;
+            border-left: 5px solid #2ecc71; /* Vạch màu xanh lá (Báo thành công) */
+            animation: slideIn 0.4s ease-out forwards; /* Hiệu ứng trượt vào */
+        }
+        
+        /* Nếu là thông báo lỗi thì đổi vạch thành màu đỏ */
+        .flash-msg.error { border-left-color: #e74c3c; }
+        
+        /* Khung hình chuyển động của thông báo */
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* --- THANH ĐIỀU HƯỚNG TRÊN CÙNG (NAVBAR) --- */
+        header {
+            background: rgba(255, 255, 255, 0.9); /* Trong suốt 90% */
+            backdrop-filter: blur(10px); /* Hiệu ứng kính mờ (Glassmorphism) */
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            position: sticky; /* Bám chặt vào mép trên khi cuộn chuột */
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Dàn hàng ngang cho các thành phần trong thanh điều hướng */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        /* Logo chữ góc trên bên trái */
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #667eea; /* Màu xanh biển nhạt */
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Danh sách các nút: Trang chủ, Sổ tay... */
+        .nav-links {
+            list-style: none; /* Xóa dấu chấm tròn của danh sách */
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links li a {
+            text-decoration: none;
+            color: #7f8c8d;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+        .nav-links li a:hover { color: #667eea; } /* Đổi màu khi đưa chuột vào */
+
+        /* Khu vực Nút Đăng nhập/Đăng ký ở góc phải */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Dòng chữ Xin chào (Tên người dùng) */
+        .user-greeting {
+            font-weight: 700;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Nút phụ (Viền màu, rỗng ruột) */
+        .btn-outline {
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            border: 2px solid #667eea;
+            color: #667eea;
+            transition: 0.3s;
+        }
+        .btn-outline:hover { background: #667eea; color: white; }
+        
+        /* Nút chính (Đổ dải màu từ xanh sang tím) */
+        .btn-solid {
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-solid:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6); }
+
+        /* --- PHẦN BANNER GIỚI THIỆU (KHỐI MÀU TÍM TO ĐÙNG) --- */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Nền màu tím gradient */
+            color: white;
+            text-align: center;
+            padding: 100px 20px 150px 20px; /* Padding dưới to để tạo khoảng trống chứa hình dải sóng */
+        }
+        .hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .hero p { font-size: 20px; max-width: 600px; margin: 0 auto 30px auto; opacity: 0.9; }
+
+        /* --- BẢNG ĐIỀU KHIỂN SAU KHI ĐĂNG NHẬP --- */
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.1); /* Hộp trong suốt dạng kính */
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 700px; /* Độ rộng của hộp */
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        /* Chữ đếm số từ và phần trăm */
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* Khung chứa thanh tiến trình (Màu mờ mờ) */
+        .progress-wrapper {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            height: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Thanh tiến trình chạy theo % (Màu xanh phát sáng) */
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            border-radius: 15px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+        }
+
+        /* Nhóm các nút chơi game */
+        .dashboard-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Thiết kế chung cho các nút Game */
+        .btn-dash {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        /* Nút học Flashcard (Màu xanh lá) */
+        .btn-study { background: #2ecc71; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4); }
+        .btn-study:hover { background: #27ae60; transform: translateY(-3px); }
+        
+        /* Nút chơi Nối từ (Màu cam) */
+        .btn-game { background: #f39c12; box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4); }
+        .btn-game:hover { background: #d35400; transform: translateY(-3px); }
+        
+        /* Nút chơi Xếp chữ (Màu trong suốt viền trắng) */
+        .btn-retake { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.5); }
+        .btn-retake:hover { background: rgba(255,255,255,0.3); transform: translateY(-3px); }
+
+        /* --- SÓNG (WAVE SVG) Ở VIỀN DƯỚI KHỐI MÀU TÍM --- */
+        .custom-shape-divider-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+        .custom-shape-divider-bottom svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+        .custom-shape-divider-bottom .shape-fill { fill: #f4f7f6; }
+
+        /* --- PHẦN TÍNH NĂNG Ở DƯỚI CÙNG (Dành cho người chưa đăng nhập) --- */
+        .features {
+            max-width: 1200px;
+            margin: 80px auto 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .features h2 { font-size: 36px; font-weight: 800; margin-bottom: 50px; color: #2c3e50; }
+
+        /* Chia cột tự động cho 3 ô tính năng */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        /* Thiết kế 1 ô tính năng */
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius
