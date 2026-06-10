@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tài Khoản</title>
+    <style>
+        /* ========================================= */
+        /* 1. KHU VỰC TRANG TRÍ (CSS)                */
+        /* ========================================= */
+
+        /* --- CÀI ĐẶT CHUNG TOÀN TRANG --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Đổi font chữ toàn bộ ở đây */
+        }
+
+        /* --- HÌNH NỀN VÀ CĂN GIỮA MÀN HÌNH --- */
+        body {
+            /* Sửa link ảnh nền ở dòng dưới ('static/image/login.jpg') */
+            background: url('static/image/login.jpg') center/cover no-repeat;
+            height: 100vh; /* Chiều cao phủ kín màn hình */
+            display: flex;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+        }
+
+        /* --- HỘP TRẮNG CHỨA FORM ĐĂNG KÝ --- */
+        .register-container {
+            background: #ffffff; /* Sửa màu nền của hộp đăng ký ở đây */
+            width: 450px; /* Sửa độ rộng (to/nhỏ) của hộp */
+            padding: 40px; /* Khoảng cách từ viền hộp vào đến nội dung bên trong */
+            border-radius: 10px; /* Độ bo tròn 4 góc của hộp */
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2); /* Đổ bóng tạo hiệu ứng nổi 3D */
+            
+            /* CÀI ĐẶT THANH CUỘN: Giúp hộp không bị tràn quá màn hình nếu có quá nhiều ô nhập */
+            max-height: 90vh; 
+            overflow-y: auto; /* Tự động hiện thanh cuộn dọc khi nội dung quá dài */
+            position: relative; /* Làm mốc tọa độ cố định để nút "Quay lại" bám theo */
+        }
+
+        /* --- NÚT QUAY LẠI TRANG CHỦ (Góc trên bên trái) --- */
+        .btn-back {
+            position: absolute;
+            top: 20px; /* Cách mép trên hộp 20px */
+            left: 20px; /* Cách mép trái hộp 20px */
+            color: #666; /* Màu chữ mặc định (Xám) */
+            text-decoration: none; /* Xóa dấu gạch chân của thẻ link */
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s; /* Hiệu ứng chuyển màu mượt mà */
+        }
+
+        /* Hiệu ứng khi di chuột (hover) vào nút Quay lại */
+        .btn-back:hover {
+            color: #2980b9; /* Đổi sang màu xanh dương khi rê chuột vào */
+        }
+
+        /* --- TIÊU ĐỀ CHỮ TO "TẠO TÀI KHOẢN" --- */
+        .register-container h2 {
+            text-align: center; /* Căn chữ ra chính giữa */
+            margin-bottom: 30px; /* Khoảng cách đẩy form ở dưới ra xa */
+            color: #333; /* Màu chữ tiêu đề */
+            margin-top: 10px; /* Khoảng cách né nút quay lại ở trên đầu */
+        }
+
+        /* --- KHUNG BAO QUANH MỖI Ô NHẬP LIỆU --- */
+        .input-group {
+            margin-bottom: 20px; /* Khoảng cách giữa các ô nhập với nhau */
+            position: relative;
+        }
+
+        /* Tên nhãn mô tả của ô nhập ("Họ và tên", "Địa chỉ Email"...) */
+        .input-group label {
+            display: block;
+            margin-bottom: 8px; /* Khoảng cách từ chữ xuống ô gõ */
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Ô trắng để gõ nội dung vào */
+        .input-group input {
+            width: 100%; /* Kéo dài ô gõ bằng chiều rộng hộp */
+            padding: 12px; /* Không gian trống bên trong ô gõ */
+            border: 1px solid #ccc; /* Đường viền xám mặc định bao quanh ô gõ */
+            border-radius: 5px; /* Bo góc ô gõ */
+            outline: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        /* Hiệu ứng đổi màu viền khi click chuột vào trong ô gõ */
+        .input-group input:focus {
+            border-color: #3498db; /* Viền đổi sang màu xanh sáng */
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3); /* Phát sáng nhẹ quanh ô */
+        }
+        
+        /* --- DÒNG CHỮ BÁO LỖI MÀU ĐỎ ("Mật khẩu không khớp!") --- */
+        .error-message {
+            color: #e74c3c; /* Màu đỏ báo lỗi */
+            font-size: 13px;
+            margin-top: 5px; /* Khoảng cách sát đít ô nhập */
+            display: none; /* MẶC ĐỊNH ẨN ĐI - Chỉ hiện lên bằng JavaScript khi có lỗi */
+        }
+
+        /* --- NÚT BẤM TO ĐÙNG "ĐĂNG KÝ" --- */
+        .btn-register {
+            width: 100%; /* Nút kéo dài hết cỡ */
+            padding: 12px;
+            /* Chỉnh dải màu nền mặc định ở đây (Đang đổ từ Hồng sang Xanh dương đậm) */
+            background: linear-gradient(90deg, #f10a7a 0%, #1e00ff 100%);
+            border: none;
+            border-radius: 5px; /* Bo góc nút bấm */
+            color: white; /* Màu chữ trên nút */
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer; /* Đổi chuột thành hình bàn tay khi trỏ vào */
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        /* Hiệu ứng ĐỔI MÀU khi rê chuột vào nút Đăng ký */
+        .btn-register:hover {
+            /* Đổi thành dải màu xanh sáng giống nút Đăng nhập cho đồng bộ */
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+        }
+
+        /* --- DÒNG CHỮ CHUYỂN HƯỚNG "ĐĂNG NHẬP TẠI ĐÂY" Ở DƯỚI CÙNG --- */
+        .login-link {
+            text-align: center;
+            margin-top: 20px; /* Khoảng cách cách đuôi nút bấm ở trên */
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Đường link điều hướng */
+        .login-link a {
+            color: #3498db; /* Màu xanh của link */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Gạch chân đường link khi di chuột vào */
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        
+        <a href="/" class="btn-back">← Về trang chủ</a>
+
+        <h2>Tạo Tài Khoản</h2>
+        
+        <form action="/register" method="POST" id="registerForm">
+            
+            <div class="input-group">
+                <label for="fullname">Họ và tên</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Nhập họ và tên của bạn" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Địa chỉ Email</label>
+                <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" placeholder="Tạo mật khẩu" minlength="6" required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm_password">Xác nhận mật khẩu</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Nhập lại mật khẩu" required>
+                
+                <div class="error-message" id="passwordError">Mật khẩu không khớp!</div>
+            </div>
+
+            <button type="submit" class="btn-register">Đăng Ký</button>
+
+            <div class="login-link">
+                Đã có tài khoản? <a href="/login">Đăng nhập tại đây</a>
+            </div>
+            
+        </form>
+    </div>
+
+    <script>
+        // Lắng nghe hành động khi người dùng nhấn nút Đăng Ký (Submit Form)
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            
+            // 1. Hút giá trị chữ đang gõ trong 2 ô mật khẩu ra để so sánh
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            // 2. Lấy cái thẻ chữ báo lỗi màu đỏ ra để chuẩn bị điều khiển
+            const errorText = document.getElementById('passwordError');
+
+            // 3. SO SÁNH: Nếu Mật khẩu gõ lần 1 KHÁC LẦN 2
+            if (password !== confirmPassword) {
+                e.preventDefault(); // BẮT BUỘC: Lệnh chặn đứng Form lại, không cho gửi dữ liệu lên Python Backend
+                
+                errorText.style.display = 'block'; // Ép dòng chữ báo lỗi màu đỏ hiện hình
+                document.getElementById('confirm_password').style.borderColor = '#e74c3c'; // Đổi viền ô gõ thành màu đỏ rực
+            } else {
+                // Nếu mật khẩu khớp hoàn toàn
+                errorText.style.display = 'none'; // Giấu dòng chữ báo lỗi đi
+                document.getElementById('confirm_password').style.borderColor = '#ccc'; // Trả lại màu viền xám mặc định
+                
+                // Form tự động thông quan gửi dữ liệu thẳng về cho Flask xử lý tiếp
+            }
+        });
+    </script>
+</body>
+</html>
