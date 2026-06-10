@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập Hệ Thống</title>
+    <style>
+        /* ========================================= */
+        /* 1. KHU VỰC TRANG TRÍ (CSS)                */
+        /* ========================================= */
+
+        /* --- CÀI ĐẶT CHUNG CHO TOÀN BỘ TRANG --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Đổi font chữ toàn web ở đây */
+        }
+
+        /* --- HÌNH NỀN VÀ CĂN GIỮA MÀN HÌNH --- */
+        body {
+            /* Thay link ảnh nền ở dòng dưới ('static/image/login.jpg') */
+            background: url('static/image/login.jpg') center/cover no-repeat; 
+            height: 100vh; /* Phủ kín 100% chiều cao màn hình */
+            display: flex;
+            justify-content: center; /* Đẩy khối đăng nhập vào giữa chiều ngang */
+            align-items: center; /* Đẩy khối đăng nhập vào giữa chiều dọc */
+        }
+
+        /* --- HỘP ĐĂNG NHẬP (MÀU TRẮNG Ở CHÍNH GIỮA) --- */
+        .login-container {
+            background: #ffffff; /* Sửa màu nền của hộp ở đây (đang là màu trắng) */
+            width: 400px; /* Sửa độ rộng của khối đăng nhập */
+            padding: 40px; /* Khoảng cách từ viền vào chữ bên trong */
+            border-radius: 10px; /* Độ bo tròn các góc của hộp */
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2); /* Đổ bóng cho hộp nổi lên */
+            position: relative; /* Dùng để làm mốc cho cái nút "Quay lại" bám vào */
+        }
+
+        /* --- NÚT QUAY LẠI TRANG CHỦ (Góc trên bên trái) --- */
+        .btn-back {
+            position: absolute;
+            top: 20px; /* Cách viền trên 20px */
+            left: 20px; /* Cách viền trái 20px */
+            color: #666; /* Màu chữ nút quay lại */
+            text-decoration: none; /* Xóa dấu gạch chân của link */
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s; /* Hiệu ứng chuyển màu mượt mà mất 0.3 giây */
+        }
+
+        /* Hiệu ứng khi di chuột (hover) vào nút Quay lại */
+        .btn-back:hover {
+            color: #2980b9; /* Đổi màu xanh khi di chuột vào */
+        }
+
+        /* --- TIÊU ĐỀ CHỮ TO "ĐĂNG NHẬP" --- */
+        .login-container h2 {
+            text-align: center; /* Căn giữa chữ */
+            margin-bottom: 30px; /* Khoảng cách đẩy chỏm dưới ra xa 30px */
+            color: #333; /* Màu chữ tiêu đề */
+        }
+
+        /* --- KHUNG CHỨA TỪNG Ô NHẬP (Gồm cả chữ mô tả + Ô trắng để gõ) --- */
+        .input-group {
+            margin-bottom: 20px; /* Khoảng cách giữa các ô nhập với nhau */
+            position: relative;
+        }
+
+        /* --- CHỮ MÔ TẢ TRÊN Ô NHẬP ("Tên đăng nhập", "Mật khẩu") --- */
+        .input-group label {
+            display: block;
+            margin-bottom: 8px; /* Khoảng cách từ chữ xuống ô gõ */
+            color: #666; /* Màu chữ mô tả */
+            font-size: 14px;
+        }
+
+        /* --- Ô TRẮNG ĐỂ NGƯỜI DÙNG GÕ CHỮ VÀO --- */
+        .input-group input {
+            width: 100%; /* Kéo giãn ô dài bằng hộp chứa */
+            padding: 12px; /* Khoảng không gian bên trong ô gõ */
+            border: 1px solid #ccc; /* Viền nhạt màu xám bao quanh ô gõ */
+            border-radius: 5px; /* Bo góc ô gõ */
+            outline: none;
+            font-size: 16px; /* Cỡ chữ khi gõ vào */
+            transition: 0.3s;
+        }
+
+        /* Hiệu ứng VIỀN XANH khi click chuột vào trong ô gõ */
+        .input-group input:focus {
+            border-color: #3498db; /* Viền sáng lên màu xanh */
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3); /* Phát sáng nhẹ quanh viền */
+        }
+
+        /* --- KHU VỰC "NHỚ MẬT KHẨU" & "QUÊN MẬT KHẨU" (Xếp cùng 1 hàng) --- */
+        .options {
+            display: flex;
+            justify-content: space-between; /* Đẩy 2 thành phần sang 2 mép hai bên */
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        /* Chữ của link "Quên mật khẩu?" */
+        .options a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        /* Hover link quên mật khẩu */
+        .options a:hover {
+            text-decoration: underline; /* Thêm gạch chân khi di chuột */
+        }
+
+        /* --- NÚT BẤM "ĐĂNG NHẬP" TO ĐÙNG MÀU XANH --- */
+        .btn-login {
+            width: 100%; /* Nút dài 100% */
+            padding: 12px;
+            /* Chỉnh dải màu nền ở đây (Đang là từ xanh dương nhạt sang xanh đậm) */
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            border: none;
+            border-radius: 5px; /* Bo góc nút */
+            color: white; /* Màu chữ trên nút */
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer; /* Biến chuột thành hình bàn tay khi trỏ vào */
+            transition: 0.3s;
+        }
+
+        /* Hiệu ứng ĐỔI MÀU khi trỏ chuột vào nút "Đăng nhập" */
+        .btn-login:hover {
+            background: linear-gradient(90deg, #ff00e6 0%, #0c00ec 100%); /* Thành màu hồng tím */
+        }
+
+        /* --- DÒNG CHỮ "CHƯA CÓ TÀI KHOẢN? ĐĂNG KÝ NGAY" Ở DƯỚI CÙNG --- */
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        /* Chữ của link "Đăng ký ngay" */
+        .signup-link a {
+            color: #8e44ad; /* Màu tím */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="login-container">
+        
+        <a href="/" class="btn-back">← Về trang chủ</a>
+
+        <h2>Đăng Nhập</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div style="background-color: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; padding: 10px; border-radius: 5px; margin-bottom: 20px; font-size: 14px; text-align: center;">
+                        ⚠️ {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/login" method="POST" id="loginForm">
+            
+            <div class="input-group">
+                <label for="username">Tên đăng nhập </label>
+                <input type="text" id="username" name="username" placeholder="Nhập username" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+            </div>
+
+            <div class="options">
+                <label>
+                    <input type="checkbox" name="remember"> Nhớ mật khẩu
+                </label>
+                <a href="/forgot_password">Quên mật khẩu?</a>
+            </div>
+
+            <button type="submit" class="btn-login">Đăng Nhập</button>
+
+            <div class="signup-link">
+                Chưa có tài khoản? <a href="/register">Đăng ký ngay</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
