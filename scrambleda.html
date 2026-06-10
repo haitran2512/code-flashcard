@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Xếp Chữ - Pro Flashcard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================= */
+        /* 1. KHU VỰC TRANG TRÍ GIAO DIỆN (CSS)      */
+        /* ========================================= */
+
+        /* --- CÀI ĐẶT CHUNG TOÀN MÀN HÌNH --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
+        body { 
+            /* Sửa dải màu nền của game ở đây (Đang đổ từ Hồng sang Hồng nhạt Pastel) */
+            background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%); 
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; color: #2c3e50; overflow-x: hidden;
+        }
+        
+        # CONTAINER CHỨA TOÀN BỘ KHỐI GAME TRONG SUỐT (MÀU TRẮNG KÍNH MỜ) --- */
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); /* Hiệu ứng mờ kính Glassmorphism */
+            max-width: 600px; /* Độ rộng của hộp game */
+            width: 100%;
+            padding: 40px 30px;
+            border-radius: 25px; /* Bo tròn góc hộp game cực mạnh */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        /* --- KHU VỰC THÔNG SỐ (Số câu, Điểm số, Thời gian) --- */
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; font-weight: 800; font-size: 18px; color: #7f8c8d; }
+        
+        /* Hộp hiện điểm số màu Vàng */
+        .score-box { background: #f1c40f; color: white; padding: 5px 15px; border-radius: 20px; font-size: 20px; box-shadow: 0 4px 10px rgba(241, 196, 15, 0.3); }
+        
+        /* Hộp đếm ngược thời gian màu Đỏ */
+        .timer-box { background: #e74c3c; color: white; padding: 5px 15px; border-radius: 20px; font-size: 20px; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
+
+        /* --- DÒNG CHỮ HIỆN NGHĨA TIẾNG VIỆT (GỢI Ý) --- */
+        .meaning-hint { font-size: 22px; font-weight: 800; color: #667eea; margin-bottom: 25px; min-height: 60px; display: flex; align-items: center; justify-content: center;}
+
+        /* --- Ô CHỨA CÁC CHỮ CÁI ĐÃ ĐƯỢC CHỌN (Các vạch gạch chân) --- */
+        .answer-area { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; min-height: 60px; flex-wrap: wrap; }
+        
+        /* Từng ô chữ cái đơn lẻ trong chuỗi đáp án */
+        .answer-slot {
+            width: 50px; height: 60px; border-bottom: 4px solid #bdc3c7; /* Đường gạch chân màu xám */
+            font-size: 32px; font-weight: 900; color: #2c3e50;
+            display: flex; align-items: center; justify-content: center; text-transform: uppercase;
+        }
+
+        /* --- Ô CHỨA CÁC CHỮ CÁI LỘN XỘN (POOL) --- */
+        .letter-pool { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+        
+        /* Thiết kế cho từng nút khối chữ cái có đổ bóng 3D */
+        .letter-tile {
+            width: 55px; height: 55px; 
+            /* Sửa màu sắc của các nút chữ cái ở dòng gradient dưới (Tím sang Xanh tím) */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; font-size: 28px; font-weight: 900; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 6px 0 #4a5568, 0 10px 10px rgba(0,0,0,0.2); /* Tạo khối độ dày 3D ở đít nút */
+            transition: all 0.1s; user-select: none;
+        }
+        
+        /* Hiệu ứng lún nút xuống khi bấm chuột vào */
+        .letter-tile:active { transform: translateY(6px); box-shadow: 0 0 0 #4a5568, 0 0px 0px rgba(0,0,0,0.2); }
+        
+        /* Khi nút chữ cái đã bị bấm chọn, nó sẽ biến mất (Tàng hình đi) */
+        .letter-tile.used { opacity: 0; pointer-events: none; transform: scale(0); }
+
+        /* --- CỤM NÚT XÓA / ĐẢO CHỮ --- */
+        .controls { display: flex; justify-content: center; gap: 15px; }
+        .btn { padding: 12px 25px; border: none; border-radius: 20px; font-size: 16px; font-weight: 800; cursor: pointer; color: white; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px;}
+        
+        /* Nút Xóa (Màu đỏ) */
+        .btn-clear { background: #e74c3c; }
+        .btn-clear:hover { background: #c0392b; transform: translateY(-2px); }
+        
+        # Nút Đảo Chữ (Màu xanh dương) --- */
+        .btn-shuffle { background: #3498db; }
+        .btn-shuffle:hover { background: #2980b9; transform: translateY(-2px); }
+
+        /* --- HIỆU ỨNG CẢNH BÁO ĐÚNG / SAI CHO CẢ HỘP GAME --- */
+        /* Khi đoán sai: Hộp game lắc qua lắc lại dữ dội + Viền đỏ */
+        .game-container.wrong { animation: shake 0.4s; border: 2px solid #e74c3c; }
+        /* Khi đoán đúng: Hộp game lên viền xanh lá + Phát sáng hào quang xanh */
+        .game-container.correct { border: 2px solid #2ecc71; box-shadow: 0 0 30px rgba(46, 204, 113, 0.4); }
+
+        /* Khung hình chuyển động lắc lư khi sai */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* --- MÀN HÌNH BÁO KẾT QUẢ CHUNG CUỘC (Bị giấu đi lúc đầu) --- */
+        .result-screen { display: none; text-align: center; }
+        .result-screen h1 { font-size: 40px; color: #2ecc71; margin-bottom: 10px; }
+        
+        /* Thiết kế 2 nút "Về trang chủ" và "Chơi lại" */
+        .btn-home { display: inline-block; background: #667eea; color: white; text-decoration: none; padding: 15px 30px; border-radius: 25px; font-weight: 800; font-size: 18px; margin-top: 30px; transition: 0.3s; box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);}
+        .btn-home:hover { transform: translateY(-3px); background: #5a67d8; }
+        
+        /* Dòng chữ gợi ý phím tắt màu xám nhỏ dưới cùng */
+        .keyboard-hint { margin-top: 25px; font-size: 13px; color: #95a5a6; font-weight: 700;}
+    </style>
+</head>
+<body>
+
+    <div class="game-container" id="gameBox">
+        
+        <div id="playingScreen">
+            <div class="header-top">
+                <div>Câu: <span id="currentWordIdx">1</span>/<span id="totalWords">10</span></div>
+                <div class="score-box">⭐ <span id="score">0</span></div>
+                <div class="timer-box">⏳ <span id="timer">30</span>s</div>
+            </div>
+
+            <div class="meaning-hint" id="meaningHint">Nghĩa tiếng Việt</div>
+
+            <div class="answer-area" id="answerArea">
+            </div>
+
+            <div class="letter-pool" id="letterPool">
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-clear" onclick="clearAnswer()">⬅ Xóa (Backspace)</button>
+                <button class="btn btn-shuffle" onclick="shuffleTiles()">🔄 Đảo lại chữ (Space)</button>
+            </div>
+            
+            <div class="keyboard-hint">💡 Mẹo: Cậu có thể gõ phím máy tính để chơi cực nhanh!</div>
+        </div>
+
+        <div class="result-screen" id="resultScreen">
+            <h1>🎉 Quá Đỉnh!</h1>
+            <p style="font-size: 20px; font-weight: 700; color: #2c3e50; margin-top: 10px;">Tổng điểm của cậu:</p>
+            <div style="font-size: 60px; font-weight: 900; color: #f1c40f; margin: 10px 0; text-shadow: 0 4px 10px rgba(241, 196, 15, 0.4);" id="finalScore">0</div>
+            <p style="color: #7f8c8d; font-weight: 700;">Tốc độ và sự chính xác làm nên điểm số!</p>
+            
+            <a href="/" class="btn-home">🏠 Về Trang Chủ</a>
+            <a href="/scramble" class="btn-home" style="background: #2ecc71; margin-left: 10px;">🔄 Chơi Lại</a>
+        </div>
+
+    </div>
+
+    <script id="vocab-data" type="application/json">
+        '{{ vocab_list | tojson | safe }}'
+    </script>
+
+    <script>
+        // Lấy chuỗi chữ thô từ thẻ ảo ra, dọn dẹp sạch dấu nháy đơn
+        let rawData = document.getElementById('vocab-data').textContent.trim();
+        if (rawData.startsWith("'") && rawData.endsWith("'")) {
+            rawData = rawData.slice(1, -1);
+        }
+        const vocabList = JSON.parse(rawData); // Chuyển thành mảng Array của JS
+        
+        // CÁC BIẾN QUẢN LÝ TIẾN TRÌNH GAME
+        let currentWordIndex = 0; // Vị trí từ hiện tại (Từ câu số 0 đến câu số 9)
+        let score = 0; // Điểm tổng tích lũy
+        let currentWordObj = null; // Đối tượng từ vựng hiện tại (Gồm ID, từ gốc, nghĩa)
+        let targetWord = ""; # Từ tiếng Anh gốc nhưng đã bị hút sạch dấu cách (Ví dụ: 'Data Science' -> 'DataScience')
+        let selectedLetters = []; // Mảng lưu các chữ cái user đã nhặt đưa lên vạch gạch chân
+        let scrambledArray = []; // Mảng lưu danh sách chữ cái bị xáo trộn để vẽ ra nút bấm
+        
+        let timeLeft = 30; // Biến đếm ngược thời gian (giây)
+        let timerInterval; // Bộ định thời đếm ngược
+
+        // Lấy các thành phần HTML vào trong JS để điều khiển
+        const answerArea = document.getElementById('answerArea');
+        const letterPool = document.getElementById('letterPool');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const gameBox = document.getElementById('gameBox');
+
+        // HÀM KHỞI CHẠY GAME LẦN ĐẦU TIÊN
+        function initGame() {
+            document.getElementById('totalWords').innerText = vocabList.length; // Set tổng số câu (10 câu)
+            loadWord(); // Tải câu hỏi đầu tiên
+        }
+
+        // HÀM TẢI NỘI DUNG MỘT CÂU HỎI MỚI
+        function loadWord() {
+            clearInterval(timerInterval); // Xóa bộ đếm thời gian cũ (Tránh chạy lồng nhau)
+            
+            currentWordObj = vocabList[currentWordIndex];
+            targetWord = currentWordObj.word.replace(/\s+/g, ''); // Loại bỏ sạch bách dấu cách nếu từ có khoảng trống
+            
+            timeLeft = 30 + Math.floor(targetWord.length); // Từ càng dài gõ càng lâu nên thuật toán tự động cộng thêm giây
+            timerDisplay.innerText = timeLeft;
+            
+            selectedLetters = []; // Reset mảng chữ đã chọn về rỗng
+            document.getElementById('currentWordIdx').innerText = currentWordIndex + 1; // Tăng số thứ tự câu hiển thị
+            document.getElementById('meaningHint').innerText = currentWordObj.meaning; // Hiện gợi ý tiếng Việt
+
+            // Thuật toán băm nhỏ từ gốc thành từng chữ cái đơn lẻ rồi xáo trộn xì ngầu lên
+            scrambledArray = targetWord.split('').sort(() => Math.random() - 0.5);
+            // VÒNG LẶP DỰ PHÒNG: Nếu xáo trộn xui xẻo vô tình trùng khớp luôn với từ gốc ban đầu -> Ép trộn lại
+            while(scrambledArray.join('') === targetWord && targetWord.length > 1) {
+                scrambledArray = targetWord.split('').sort(() => Math.random() - 0.5);
+            }
+
+            renderUI(); // Vẽ giao diện các nút bấm ra màn hình
+            startTimer(); // Bắt đầu đếm ngược thời gian tích tắc
+        }
+
+        // HÀM VẼ GIAO DIỆN (Cập nhật liên tục mỗi khi người chơi bấm nút gõ chữ)
+        function renderUI() {
+            // 1. Vẽ khu vực đáp án (vẽ các gạch ngang dưới chân)
+            answerArea.innerHTML = "";
+            for (let i = 0; i < targetWord.length; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'answer-slot';
+                // Nếu vị trí này đã được điền chữ -> Hiện chữ gõ, nếu chưa -> Để trống vạch gạch ngang
+                slot.innerText = selectedLetters[i] ? selectedLetters[i].char : "";
+                answerArea.appendChild(slot);
+            }
+
+            // 2. Vẽ các nút khối chữ cái lộn xộn ở bể chứa (Pool)
+            letterPool.innerHTML = "";
+            scrambledArray.forEach((char, index) => {
+                const tile = document.createElement('div');
+                tile.className = 'letter-tile';
+                tile.innerText = char;
+                tile.dataset.index = index; // Gắn số thứ tự index để định danh nút gạch
+                tile.dataset.char = char;
+                
+                // Nếu nút chữ cái ở vị trí index này đã được user chọn nhặt đi rồi -> Gắn class "used" để giấu nó đi
+                if (selectedLetters.find(item => item.index === index)) {
+                    tile.classList.add('used');
+                }
+
+                // Khi dùng chuột click trực tiếp vào cục chữ cái
+                tile.onclick = () => selectLetter(char, index);
+                letterPool.appendChild(tile);
+            });
+        }
+
+        // HÀM XỬ LÝ KHI NGƯỜI CHƠI CHỌN 1 CHỮ CÁI
+        function selectLetter(char, index) {
+            // Chỉ cho chọn nếu số chữ đã nhặt nhỏ hơn độ dài từ gốc
+            if (selectedLetters.length < targetWord.length) {
+                selectedLetters.push({ char, index }); // Đẩy chữ vào mảng đã chọn
+                renderUI(); // Vẽ lại giao diện để giấu chữ dưới pool, hiện chữ trên gạch ngang
+                checkAnswer(); // Kiểm tra xem đã xếp đủ cả từ chưa để chấm điểm
+            }
+        }
+
+        // HÀM CỦA NÚT XÓA (Hoặc khi ấn phím Backspace trên bàn phím)
+        function clearAnswer() {
+            if (selectedLetters.length > 0) {
+                selectedLetters.pop(); // Rút bớt 1 chữ cái cuối cùng ra khỏi mảng đáp án
+                renderUI(); // Vẽ lại giao diện, nhả nút chữ cái chui ngược về pool cũ
+            }
+        }
+
+        // HÀM CỦA NÚT ĐẢO TỪ (Giúp xáo trộn lại các chữ cái còn thừa bên dưới nếu nhìn rối mắt)
+        function shuffleTiles() {
+            // Lọc tìm danh sách các vị trí index chưa bị người chơi nhặt đi
+            let unusedIndexes = scrambledArray.map((_, i) => i).filter(i => !selectedLetters.find(s => s.index === i));
+            // Gom các chữ cái chưa dùng đó lại rồi xáo trộn ngẫu nhiên một lần nữa
+            let unusedChars = unusedIndexes.map(i => scrambledArray[i]).sort(() => Math.random() - 0.5);
+            
+            // Gán chữ cái đã trộn mới trả lại vào mảng pool gốc
+            unusedIndexes.forEach((oldIdx, i) => {
+                scrambledArray[oldIdx] = unusedChars[i];
+            });
+            renderUI(); // Vẽ lại
+        }
+
+        // HÀM CHẤM ĐIỂM ĐÚNG / SAI CỦA TỪ
+        function checkAnswer() {
+            // Chỉ check khi người chơi đã nhặt đủ số chữ cái bằng độ dài từ gốc
+            if (selectedLetters.length === targetWord.length) {
+                let userWord = selectedLetters.map(i => i.char).join(''); // Nối mảng chữ gõ thành 1 từ hoàn chỉnh
+                
+                if (userWord === targetWord) {
+                    // --- TRƯỜNG HỢP: ĐOÁN ĐÚNG ---
+                    clearInterval(timerInterval); // Dừng đếm thời gian ngay lập tức
+                    gameBox.classList.add('correct'); // Bật viền xanh phát sáng cho hộp game
+                    
+                    // CÔNG THỨC TÍNH ĐIỂM: (Độ dài từ * 10 điểm) + (Số giây thời gian còn dư * 3 điểm) -> Gõ càng nhanh điểm càng cao!
+                    let pointsEarned = (targetWord.length * 10) + (timeLeft * 3);
+                    score += pointsEarned; // Cộng dồn vào điểm tổng
+                    scoreDisplay.innerText = score;
+
+                    // Đợi hiệu ứng viền xanh chớp tắt 0.8 giây rồi tự qua câu mới
+                    setTimeout(() => {
+                        gameBox.classList.remove('correct');
+                        nextWord();
+                    }, 800);
+                } else {
+                    # --- TRƯỜNG HỢP: ĐOÁN SAI ---
+                    gameBox.classList.add('wrong'); // Bật hiệu ứng hộp game rung lắc bần bật + Viền đỏ
+                    
+                    // ĐỒNG BỘ BACKEND: Gửi ngầm từ làm sai này lên Python để nhốt vào Sổ Tay Từ Khó (review)
+                    fetch("/scramble_wrong", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            word: currentWordObj.word,
+                            meaning: currentWordObj.meaning
+                        })
+                    });
+
+                    // Lắc xong trong 0.5 giây thì tự động xóa sạch chữ gõ sai để user gõ lại từ đầu
+                    setTimeout(() => {
+                        gameBox.classList.remove('wrong');
+                        selectedLetters = []; // Reset rỗng vạch đáp án
+                        renderUI();
+                    }, 500);
+                }
+            }
+        }
+
+        // HÀM CHUYỂN CÂU HỎI TIẾP THEO
+        function nextWord() {
+            currentWordIndex++; // Tăng biến vị trí lên 1 đơn vị
+            if (currentWordIndex < vocabList.length) {
+                loadWord(); // Tải từ mới
+            } else {
+                // --- TRƯỜNG HỢP: ĐÃ CHƠI HẾT 10 CÂU (THẮNG GAME) ---
+                document.getElementById('playingScreen').style.display = 'none'; // Giấu màn hình chơi game đi
+                document.getElementById('resultScreen').style.display = 'block'; # Bật màn hình báo kết quả tổng kết điểm lên
+                document.getElementById('finalScore').innerText = score; // Bơm điểm tổng vào màn hình chúc mừng
+            }
+        }
+
+        // HÀM CHẠY ĐỒNG HỒ ĐẾM NGƯỢC
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--; // Trừ bớt 1 giây
+                timerDisplay.innerText = timeLeft;
+                
+                // NẾU HẾT SẠCH THỜI GIAN (Bị tính là thua câu đó)
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval); // Tắt đồng hồ
+                    gameBox.classList.add('wrong'); // Báo đỏ hộp game
+                    
+                    // Hết giờ gõ không kịp cũng gửi từ này vào Sổ tay từ khó của Python
+                    fetch("/scramble_wrong", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            word: currentWordObj.word,
+                            meaning: currentWordObj.meaning
+                        })
+                    });
+
+                    // Đợi lắc đỏ xong 0.8 giây thì tự cưỡng chế bỏ qua câu cũ, ép sang câu tiếp theo
+                    setTimeout(() => {
+                        gameBox.classList.remove('wrong');
+                        nextWord(); 
+                    }, 800);
+                }
+            }, 1000); // Đều đặn chạy lại sau mỗi 1000 mili-giây (1 giây)
+        }
+
+        // =========================================
+        /* 3. KHU VỰC PHÍM TẮT BÀN PHÍM MÁY TÍNH   */
+        // =========================================
+        document.addEventListener('keydown', (e) => {
+            // Nếu game đang ở màn hình kết thúc (Đang ẩn màn hình chơi) -> Vô hiệu hóa phím tắt, không cho gõ nữa
+            if (document.getElementById('playingScreen').style.display === 'none') return;
+            
+            const key = e.key.toUpperCase(); // Đổi phím gõ thành chữ hoa hết để so sánh
+            
+            if (key === 'BACKSPACE') {
+                clearAnswer(); // Ấn nút xóa lùi trên bàn phím máy tính
+            } else if (key === ' ' || key === 'SPACEBAR') {
+                e.preventDefault(); // Chặn đứng hành vi cuộn trang lên xuống mặc định của phím Cách (Space)
+                shuffleTiles(); // Ấn phím Cách để đảo vị trí các nút chữ cái
+            } else if (/^[A-Z]$/.test(key)) { // Nếu gõ các ký tự chữ cái thông thường từ A đến Z
+                let availableTile = null;
+                // VÒNG LẶP: Tìm xem dưới Pool có cục chữ cái nào khớp với phím vừa gõ mà chưa bị nhặt đi không
+                for (let i = 0; i < scrambledArray.length; i++) {
+                    if (scrambledArray[i] === key && !selectedLetters.find(s => s.index === i)) {
+                        availableTile = { char: key, index: i }; // Khóa mục tiêu tìm được
+                        break; // Thoát vòng lặp ngay khi tìm thấy chữ cái đầu tiên
+                    }
+                }
+                // Nếu tìm thấy chữ cái hợp lệ dưới Pool -> Tự động kích hoạt gõ chữ lên vạch đáp án
+                if (availableTile) {
+                    selectLetter(availableTile.char, availableTile.index);
+                }
+            }
+        });
+
+        initGame(); // Kích nổ động cơ chạy game ngay khi tải xong trang web
+    </script>
+</body>
+</html>
