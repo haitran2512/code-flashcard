@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Flashcard - Pro Flashcard</title>
+    <style>
+        /* ========================================= */
+        /* 1. KHU VỰC TRANG TRÍ GIAO DIỆN (CSS)      */
+        /* ========================================= */
+
+        /* --- CÀI ĐẶT CHUNG TOÀN TRANG --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { 
+            /* Sửa dải màu nền của trang ở đây (Đang đổ từ Hồng cánh sen sang Xanh dương đậm) */
+            background: linear-gradient(120deg, #ff00d0, #0022ff); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding-top: 50px; 
+            color: white;
+        }
+        
+        /* --- THANH ĐIỀU HƯỚNG TRÊN ĐẦU (Nút quay lại + Bộ đếm số thẻ) --- */
+        .header-bar { width: 100%; max-width: 600px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding: 0 20px;}
+        
+        /* Thiết kế nút "Về trang chủ" */
+        .btn-back { color: white; text-decoration: none; font-size: 16px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 5px; transition: 0.3s;}
+        .btn-back:hover { background: rgba(255,255,255,0.4); }
+        
+        /* Chữ đếm số thẻ ("Thẻ: 1 / 20") */
+        .progress-text { font-size: 18px; font-weight: bold; }
+
+        /* ========================================= */
+        /* KHU VỰC ĐỊNH DẠNG HIỆU ỨNG XOAY 3D CHO THẺ */
+        /* ========================================= */
+        
+        /* Khung không gian 3D bao quanh thẻ (Gìn giữ độ sâu lập thể) */
+        .scene { width: 350px; height: 450px; perspective: 1000px; margin-bottom: 40px; }
+        
+        /* Khối thẻ chạy hiệu ứng xoay */
+        .card { 
+            width: 100%; height: 100%; 
+            position: relative; 
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); /* Tốc độ lật mất 0.6 giây */
+            transform-style: preserve-3d; 
+            cursor: pointer; 
+        }
+        
+        /* LỆNH LẬT ÚP THẺ: Khi JS thêm class này vào, thẻ sẽ tự động quay 180 độ ra mặt sau */
+        .card.is-flipped { transform: rotateY(180deg); }
+        
+        /* Thiết kế bề mặt chung cho cả 2 mặt của tấm thẻ */
+        .card__face { 
+            position: absolute; width: 100%; height: 100%; 
+            backface-visibility: hidden; /* Giấu mặt đối diện đi khi đang xoay */
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            border-radius: 20px; /* Bo tròn góc tấm thẻ */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); /* Đổ bóng mạnh tạo độ nổi cho thẻ */
+            padding: 30px; text-align: center; 
+        }
+        
+        /* ĐỊNH DẠNG MẶT TRƯỚC TẤM THẺ (Chứa từ tiếng Anh) */
+        .card__face--front { background: white; color: #2c3e50; }
+        
+        /* ĐỊNH DẠNG MẶT SAU TẤM THẺ (Chứa nghĩa tiếng Việt) */
+        /* Sửa màu mặt sau của thẻ ở dòng background bên dưới (Đang là màu Vàng cam) */
+        .card__face--back { background: #f39c12; color: white; transform: rotateY(180deg); }
+
+        /* --- CỠ CHỮ HIỂN THỊ TRÊN THẺ --- */
+        .word { font-size: 42px; font-weight: bold; margin-bottom: 15px; color: #2980b9;} # Chữ Tiếng Anh mặt trước
+        .meaning { font-size: 32px; font-weight: bold; } # Nghĩa Tiếng Việt mặt sau
+        
+        /* Dòng chữ gợi ý nhỏ màu xám dưới đáy mặt trước */
+        .hint { font-size: 14px; color: #999; margin-top: auto; }
+        /* Dòng chữ gợi ý nhỏ mờ mờ dưới đáy mặt sau */
+        .hint-back { font-size: 14px; color: rgba(255,255,255,0.8); margin-top: auto; }
+
+        /* --- CỤM NÚT ĐIỀU KHIỂN ĐÃ THUỘC / CHƯA THUỘC --- */
+        .controls { display: flex; gap: 20px; }
+        
+        /* Cài đặt khuôn mẫu chung cho 2 nút bấm */
+        .btn-control { padding: 15px 30px; border: none; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); color: white;}
+        
+        /* Nút "Chưa thuộc" (Màu đỏ) */
+        .btn-fail { background: #e74c3c; }
+        .btn-fail:hover { background: #c0392b; transform: translateY(-3px);} /* Nhô lên nhẹ khi rê chuột */
+        
+        /* Nút "Đã thuộc" (Màu xanh lá) */
+        .btn-pass { background: #27ae60; }
+        .btn-pass:hover { background: #219653; transform: translateY(-3px); }
+
+        /* --- MÀN HÌNH CHÚC MỪNG HOÀN THÀNH HẾT THẺ (Mặc định bị giấu) --- */
+        .completion-msg { display: none; text-align: center; font-size: 24px; background: white; color: #2c3e50; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="/" class="btn-back">← Về trang chủ</a>
+        <div class="progress-text">Thẻ: <span id="currentIndex">1</span> / <span id="totalCards">0</span></div>
+    </div>
+
+    <div class="scene" id="flashcard-scene">
+        <div class="card" id="flashcard">
+            <div class="card__face card__face--front">
+                <div class="word" id="front-word">Word</div>
+                <div class="hint">Chạm vào thẻ để xem nghĩa</div>
+            </div>
+            <div class="card__face card__face--back">
+                <div class="meaning" id="back-meaning">Ý nghĩa</div>
+                <div class="hint-back">Chạm để úp thẻ lại</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="completion-msg" id="completion-msg">
+        <h2>🎉 Tuyệt vời!</h2>
+        <p style="margin-top: 15px; font-size: 16px; color: #666;">Cậu đã hoàn thành phiên học Flashcard này. Giờ làm bài test để khắc sâu trí nhớ nhé!</p>
+        <a href="/quiz" class="btn-back" style="display: inline-block; margin-top: 25px; background: #e67e22;">📝 Làm bài Test ngay</a>
+    </div>
+
+    <div class="controls" id="controls">
+        <button class="btn-control btn-fail" onclick="markWord(0)">❌ Chưa thuộc</button>
+        <button class="btn-control btn-pass" onclick="markWord(1)">✅ Đã thuộc</button>
+    </div>
+
+    <script id="vocab-data" type="application/json">
+        {{ vocab_list | tojson | safe }}
+    </script>
+
+    <script>
+        // Hút dữ liệu thô từ thẻ ảo ra rồi dịch thành mảng Array trong JS
+        const rawData = document.getElementById('vocab-data').textContent;
+        const flashcards = JSON.parse(rawData);
+        
+        let currentCardIndex = 0; // Biến ghi nhớ vị trí thẻ hiện tại (bắt đầu từ vị trí 0)
+        const totalCards = flashcards.length; // Đếm tổng số lượng thẻ được truyền sang
+        
+        document.getElementById('totalCards').innerText = totalCards; // Bơm tổng số thẻ lên thanh bar
+
+        // LẮNG NGHE SỰ KIỆN: Click vào giữa tấm thẻ thì tự động lật mặt
+        const cardElement = document.getElementById('flashcard');
+        cardElement.addEventListener('click', function() {
+            cardElement.classList.toggle('is-flipped'); // Tự động bật/tắt class 'is-flipped' để xoay CSS 3D
+        });
+
+        // HÀM BƠM NỘI DUNG CHỮ LÊN THẺ
+        function loadCard() {
+            // Nếu vị trí hiện tại chưa vượt quá tổng số lượng thẻ đang có
+            if (currentCardIndex < totalCards) {
+                document.getElementById('front-word').innerText = flashcards[currentCardIndex].word; // Thay chữ tiếng Anh
+                document.getElementById('back-meaning').innerText = flashcards[currentCardIndex].meaning; // Thay nghĩa tiếng Việt
+                document.getElementById('currentIndex').innerText = currentCardIndex + 1; // Cập nhật số đếm dòng trên bar
+            } else {
+                // --- TRƯỜNG HỢP: ĐÃ HỌC HẾT SẠCH THẺ ---
+                document.getElementById('flashcard-scene').style.display = 'none'; // Giấu hộp thẻ đi
+                document.getElementById('controls').style.display = 'none'; // Giấu cụm 2 nút bấm đi
+                document.getElementById('completion-msg').style.display = 'block'; // Hiện hộp thông báo chúc mừng lên
+            }
+        }
+
+        // HÀM GỬI ĐIỂM NGẦM VỀ CHO SERVER PYTHON (GỌI QUA AJAX / FETCH)
+        function markWord(status) {
+            const currentWord = flashcards[currentCardIndex];
+            
+            # Kiểm tra dự phòng: Nếu ID từ vựng khác 0 (Né cái thẻ báo hết từ ảo ra)
+            if (currentWord.id !== 0) {
+                // Gửi lệnh ngầm không cần tải lại trang
+                fetch("/mark_word", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        word: currentWord.word,
+                        meaning: currentWord.meaning,
+                        status: status # Gửi lên số 1 hoặc số 0 tùy theo nút user vừa bấm
+                    })
+                });
+            }
+            
+            // Ép thẻ úp mặt về trạng thái ban đầu trước khi chuyển sang từ mới
+            cardElement.classList.remove('is-flipped');
+            
+            // Đợi 0.3 giây cho thẻ xoay úp xong xuôi thì mới tráo chữ của từ mới vào
+            setTimeout(() => {
+                currentCardIndex++; // Tăng biến vị trí lên 1 đơn vị
+                loadCard(); // Gọi hàm thay chữ câu tiếp theo
+            }, 300);
+        }
+
+        // Kích hỏa tải nội dung cho tấm thẻ đầu tiên ngay khi vừa mở trang web lên
+        loadCard();
+    </script>
+</body>
+</html>
