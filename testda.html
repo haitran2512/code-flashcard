@@ -5,134 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Khảo Sát Đầu Vào - Pro Flashcard</title>
     <style>
+        /* ========================================= */
+        /* 1. KHU VỰC TRANG TRÍ GIAO DIỆN (CSS)      */
+        /* ========================================= */
+
+        /* --- CÀI ĐẶT CHUNG TOÀN TRANG --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Đổi font chữ toàn bộ ở đây */
         }
 
+        /* --- NỀN VÀ CĂN GIỮA MÀN HÌNH --- */
         body {
+            /* Sửa dải màu nền ở dòng dưới (Đang đổ từ xanh dương sang tím giống trang bài test) */
             background: linear-gradient(120deg, #2980b9, #8e44ad);
-            min-height: 100vh;
+            min-height: 100vh; /* Phủ kín chiều cao màn hình */
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Căn hộp ra giữa theo chiều ngang */
+            align-items: center; /* Căn hộp ra giữa theo chiều dọc */
             padding: 40px 20px;
         }
 
+        /* --- HỘP TRẮNG LỚN BAO QUANH CÁC Ô KHẢO SÁT --- */
         .test-container {
-            background: #ffffff;
+            background: #ffffff; /* Sửa màu nền của hộp khảo sát */
             width: 100%;
-            max-width: 850px;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            max-width: 850px; /* Độ rộng tối đa của hộp */
+            padding: 40px; /* Khoảng cách từ viền trắng vào đến nội dung câu hỏi bên trong */
+            border-radius: 12px; /* Độ bo tròn 4 góc của hộp */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); /* Đổ bóng tạo hiệu ứng nổi 3D */
         }
 
+        /* --- PHẦN ĐẦU TRANG (Tiêu đề khảo sát) --- */
         .test-header {
-            text-align: center;
-            margin-bottom: 30px;
+            text-align: center; /* Căn chữ giữa */
+            margin-bottom: 30px; /* Khoảng cách đẩy nội dung câu hỏi phía dưới ra xa */
         }
-
         .test-header h2 {
             color: #333;
             font-size: 28px;
             margin-bottom: 10px;
         }
-
         .test-header p {
             color: #666;
             font-size: 15px;
         }
 
+        /* --- CÁC THANH TIÊU ĐỀ PHÂN CHIA PHẦN (Phần 1, Phần 2...) --- */
         .section-title {
-            background: #2c3e50;
-            color: white;
+            background: #2c3e50; /* Sửa màu nền của thanh phân phần (Đang là màu xám đen) */
+            color: white; /* Màu chữ viết trong thanh */
             padding: 10px 20px;
-            border-radius: 8px;
-            margin: 30px 0 20px 0;
+            border-radius: 8px; /* Bo tròn góc thanh */
+            margin: 30px 0 20px 0; /* Khoảng cách đẩy phía trên và phía dưới thanh */
             font-size: 20px;
-            display: inline-block;
+            display: inline-block; /* Để thanh dài vừa bằng chữ chứ không kéo hết màn hình */
         }
 
+        /* --- KHỐI BỌC MỖI CÂU HỎI (Hộp màu xám nhạt) --- */
         .question-block {
-            background: #f8f9fa;
+            background: #f8f9fa; /* Màu nền của hộp câu hỏi */
             padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #3498db;
+            border-radius: 8px; /* Bo góc hộp */
+            margin-bottom: 20px; /* Khoảng cách giữa câu hỏi này với câu hỏi tiếp theo */
+            border-left: 4px solid #3498db; # Thanh vạch dọc màu xanh lam ở bên trái hộp câu hỏi
         }
 
+        /* Dòng chữ nội dung câu hỏi */
         .question-text {
             font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 15px;
+            margin-bottom: 15px; /* Khoảng cách từ chữ xuống ô điền / ô tích trắc nghiệm */
             font-size: 16px;
         }
 
-        /* Style cho ô nhập text */
+        /* --- Ô CHỮ TRẮNG DÙNG ĐỂ GÕ ĐIỀU TRA (Câu số 1) --- */
         .input-text {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            width: 100%; /* Kéo dài ô gõ bằng chiều rộng hộp */
+            padding: 12px; /* Không gian trống bên trong ô gõ */
+            border: 1px solid #ccc; /* Đường viền xám mặc định */
+            border-radius: 5px; /* Bo góc ô gõ */
             outline: none;
             font-size: 15px;
             transition: 0.3s;
         }
-
+        /* Hiệu ứng đổi màu viền khi click chuột vào ô gõ text */
         .input-text:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+            border-color: #3498db; /* Viền sáng màu xanh lam */
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3); /* Hào quang phát sáng nhẹ */
         }
 
+        /* --- CÁC Ô ĐÁP ÁN TRẮC NGHIỆM ĐỂ LỰA CHỌN (RADIO) --- */
         .options label {
-            display: block;
-            margin-bottom: 10px;
-            cursor: pointer;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            display: block; /* Ép mỗi đáp án nằm riêng biệt trên 1 dòng */
+            margin-bottom: 10px; /* Khoảng cách giữa các dòng đáp án */
+            cursor: pointer; /* Đổi chuột thành hình bàn tay khi trỏ vào */
+            padding: 12px 15px; /* Không gian đệm bên trong ô đáp án */
+            border: 1px solid #ddd; /* Viền bao quanh ô đáp án */
+            border-radius: 5px; /* Bo góc ô */
             transition: 0.3s;
-            background: white;
+            background: white; /* Nền trắng */
             font-size: 15px;
         }
-
+        /* Hiệu ứng ĐỔI MÀU khi di chuột vào ô trắc nghiệm */
         .options label:hover {
-            background: #eaf2f8;
-            border-color: #3498db;
+            background: #eaf2f8; /* Nền đổi sang xanh dương siêu nhạt */
+            border-color: #3498db; /* Viền đổi sang xanh lam sáng */
         }
-
+        /* Nút tròn dùng để tích chọn trắc nghiệm */
         .options input[type="radio"] {
-            margin-right: 10px;
-            transform: scale(1.2);
+            margin-right: 10px; /* Khoảng cách từ nút tròn đến chữ đáp án */
+            transform: scale(1.2); /* Phóng to nút tròn lên 1.2 lần cho dễ bấm */
         }
 
+        /* --- NÚT TO ĐÙNG "XÁC NHẬN & THIẾT LẬP LỘ TRÌNH" Ở DƯỚI CÙNG --- */
         .btn-submit {
-            width: 100%;
+            width: 100%; /* Kéo dài nút 100% */
             padding: 15px;
-            background: #27ae60;
+            background: #27ae60; /* Màu nền mặc định của nút (Xanh lá cây) */
             border: none;
-            border-radius: 8px;
-            color: white;
+            border-radius: 8px; /* Bo góc nút bấm */
+            color: white; /* Màu chữ trên nút */
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
             margin-top: 30px;
-            box-shadow: 0 4px 6px rgba(39, 174, 96, 0.3);
+            box-shadow: 0 4px 6px rgba(39, 174, 96, 0.3); /* Bóng đổ màu xanh lá cây */
         }
-
+        /* Hiệu ứng khi rê chuột vào nút bấm nộp */
         .btn-submit:hover {
-            background: #219653;
-            transform: translateY(-2px);
+            background: #219653; /* Đổi sang màu xanh lá đậm hơn */
+            transform: translateY(-2px); /* Trồi nhẹ lên trên 2px */
         }
     </style>
 </head>
 <body>
 
     <div class="test-container">
+        
         <div class="test-header">
             <h2>Thiết Lập Lộ Trình Học Cá Nhân 🚀</h2>
             <p>Hoàn thành bản khảo sát ngắn dưới đây để hệ thống AI tự động tối ưu hóa bộ Flashcard phù hợp nhất với trình độ và thói quen của bạn nhé!</p>
@@ -236,6 +249,7 @@
             </div>
 
             <button type="submit" class="btn-submit">Xác Nhận & Thiết Lập Lộ Trình</button>
+            
         </form>
     </div>
 
